@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-#include "SDL2/SDL_image.h"
+#include <SDL2/SDL_image.h>
 
 Entity::Entity() : position{Vector2(0, 0)}, rotation{0}, scale{Vector2(1, 1)}, process_enabled{false} {
 

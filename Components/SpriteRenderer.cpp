@@ -1,7 +1,11 @@
 #include "SpriteRenderer.h"
 
+#include <iostream>
+
 SpriteRenderer::SpriteRenderer(const char* image_file) : position{Vector2(0, 0)}, rotation{0}, scale{Vector2(1, 1)} {
 	image = IMG_Load(image_file);
+	if (!image)
+		std::cerr << "Failed to load image: " << image_file << "\n";
 }
 
 

@@ -8,8 +8,11 @@ class Entity;
 
 class Component {
 public:
-	virtual void _ready() = 0;
-	virtual void _process(SDL_Surface* window_surface) = 0;
+	Component();
+	virtual ~Component();
+
+	virtual void _ready();
+	virtual void _process(SDL_Surface* window_surface);
 
 protected:
 	Entity* parent;

@@ -12,7 +12,7 @@
 class Component;
 
 class Entity {
-protected:
+private:
 	Vector2 position;
 	float rotation;
 	Vector2 scale;
@@ -25,7 +25,7 @@ public:
 	template <typename C>
 	C* get_component() const {
 		for (auto c : components) {
-			if (typeid(c) == typeid(C))
+			if (typeid(*c) == typeid(C))
 				return c;
 		}
 

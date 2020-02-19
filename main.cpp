@@ -9,22 +9,62 @@
 #include "SpriteRenderer.h"
 
 std::vector<Entity*> entities;
+bool quit = false;
 
+
+void initialize_entities(const std::vector<Entity*>& entities) {
+	for (Entity* ent : entities) {
+		ent->_ready();
+		for (Component* comp : ent->get_component_list())
+			comp->_ready();
+	}
+}
+
+
+void poll_events(SDL_Event& event_handler) {
+	while (SDL_PollEvent(&event_handler) != 0) {
+		switch (event_handler.type) {
+			case SDL_EventType::SDL_QUIT: {
+				quit = true;
+			} break;
+		}
+	}
+}
+
+
+void update_delta_time(std::uint64_t& dt_last, std::uint64_t& dt_now, double& delta_time) {
+	dt_last = dt_now;
+	dt_now = SDL_GetPerformanceCounter();
+	delta_time = ((dt_now - dt_last) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency())) * 0.001;
+}
+
+
+void process_entities(const std::vector<Entity*>& entities, SDL_Surface* window_surface, double delta) {
+	for (Entity* ent : entities) {
+		if (ent->is_process_enabled())
+			ent->_process(static_cast<float>(delta));
+			
+		for (Component* comp : ent->get_component_list())
+			comp->_process(window_surface);
+	}
+}
+
+// ====================================================================================================================
 
 int main() {
+	// Inits
 	SDL_Window* window;
 	SDL_Surface* surface;
+	SDL_Event event_handler;
 
-	SDL_Event ev;
-
+	// Entities/Components
 	TestEntity test_ent{};
 	test_ent.set_position(Vector2{320, 240});
 	entities.push_back(&test_ent);
-	SpriteRenderer spr{"Boss.png"};
+	SpriteRenderer spr{"../Sprites/Boss.png"};
 	test_ent.add_component(&spr);
 
-	bool quit = false;
-
+	// Init delta time
 	std::uint64_t dt_now = SDL_GetPerformanceCounter();
 	std::uint64_t dt_last = 0;
 	double delta_time = 0;
@@ -39,32 +79,17 @@ int main() {
 		else {
 			surface = SDL_GetWindowSurface(window);
 
-			for (Entity* ent : entities) {
-				ent->_ready();
-				for (Component* comp : ent->get_component_list())
-					comp->_ready();
-			}
+			initialize_entities(entities);
 
 			while (!quit) {
-				while (SDL_PollEvent(&ev) != 0) {
-					switch (ev.type) {
-						case SDL_EventType::SDL_QUIT: {
-							quit = true;
-						} break;
-					}
-				}
+				poll_events(event_handler);
 
-				dt_last = dt_now;
-				dt_now = SDL_GetPerformanceCounter();
-				delta_time = ((dt_now - dt_last) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency())) * 0.001;
+				update_delta_time(dt_last, dt_now, delta_time);
 
-				for (Entity* ent : entities) {
-					if (ent->is_process_enabled())
-						ent->_process(static_cast<float>(delta_time));
-						
-					for (Component* comp : ent->get_component_list())
-						comp->_process(surface);
-				}
+				// Clear screen for drawing
+				SDL_FillRect(surface, nullptr, 0);
+
+				process_entities(entities, surface, delta_time);
 
 				SDL_UpdateWindowSurface(window);
 			}
