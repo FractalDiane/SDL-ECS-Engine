@@ -9,16 +9,12 @@
 class SpriteRenderer : public Component {
 private:
 	SDL_Surface* image;
-	Vector2 position;
-	float rotation;
-	Vector2 scale;
 
 public:
 	SpriteRenderer(const char* image_file);
 	~SpriteRenderer();
 
-	void _ready() override;
-	void _process(SDL_Surface* window_surface) override;
+	void _comp_process(float delta, SDL_Surface* window_surface) override;
 };
 
 #endif

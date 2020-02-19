@@ -6,7 +6,10 @@
 #include <cstdint>
 
 #include "TestEntity.h"
+#include "Transform.h"
 #include "SpriteRenderer.h"
+#include "CustomBehavior.h"
+#include "Input.h"
 
 std::vector<Entity*> entities;
 bool quit = false;
@@ -14,18 +17,27 @@ bool quit = false;
 
 void initialize_entities(const std::vector<Entity*>& entities) {
 	for (Entity* ent : entities) {
-		ent->_ready();
-		for (Component* comp : ent->get_component_list())
-			comp->_ready();
+		for (auto comp : ent->get_component_list())
+			comp.second->_comp_ready();
 	}
 }
 
 
 void poll_events(SDL_Event& event_handler) {
+	Input::update_momentary_keys();
+
 	while (SDL_PollEvent(&event_handler) != 0) {
 		switch (event_handler.type) {
 			case SDL_EventType::SDL_QUIT: {
 				quit = true;
+			} break;
+
+			case SDL_EventType::SDL_KEYDOWN: {
+				Input::process_input_event(Input::KeyEventType::Pressed, event_handler);
+			} break;
+
+			case SDL_EventType::SDL_KEYUP: {
+				Input::process_input_event(Input::KeyEventType::Released, event_handler);
 			} break;
 		}
 	}
@@ -39,13 +51,10 @@ void update_delta_time(std::uint64_t& dt_last, std::uint64_t& dt_now, double& de
 }
 
 
-void process_entities(const std::vector<Entity*>& entities, SDL_Surface* window_surface, double delta) {
+void process_entities(const std::vector<Entity*>& entities, SDL_Surface* window_surface, const double& delta) {
 	for (Entity* ent : entities) {
-		if (ent->is_process_enabled())
-			ent->_process(static_cast<float>(delta));
-			
-		for (Component* comp : ent->get_component_list())
-			comp->_process(window_surface);
+		for (auto comp : ent->get_component_list())
+			comp.second->_comp_process(static_cast<float>(delta), window_surface);
 	}
 }
 
@@ -59,10 +68,14 @@ int main() {
 
 	// Entities/Components
 	TestEntity test_ent{};
-	test_ent.set_position(Vector2{320, 240});
 	entities.push_back(&test_ent);
 	SpriteRenderer spr{"../Sprites/Boss.png"};
 	test_ent.add_component(&spr);
+	CustomBehavior cb{};
+	test_ent.add_component(&cb);
+	Transform tr{};
+	tr.set_position(Vector2{320, 240});
+	test_ent.add_component(&tr);
 
 	// Init delta time
 	std::uint64_t dt_now = SDL_GetPerformanceCounter();

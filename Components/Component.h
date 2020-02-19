@@ -2,7 +2,6 @@
 #define __COMPONENT_H
 
 #include <SDL2/SDL_surface.h>
-#include "Entity.h"
 
 class Entity;
 
@@ -11,8 +10,8 @@ public:
 	Component();
 	virtual ~Component();
 
-	virtual void _ready();
-	virtual void _process(SDL_Surface* window_surface);
+	virtual void _comp_ready();
+	virtual void _comp_process(float delta, SDL_Surface* window_surface);
 
 protected:
 	Entity* parent;

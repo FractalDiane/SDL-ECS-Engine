@@ -9,5 +9,5 @@ void Component::set_parent(Entity* value) {
 }
 
 
-void Component::_ready() {}
-void Component::_process(SDL_Surface* window_surface) {}
+void Component::_comp_ready() {}
+void Component::_comp_process(float delta, SDL_Surface* window_surface) {}

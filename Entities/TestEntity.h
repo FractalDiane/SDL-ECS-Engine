@@ -10,8 +10,8 @@ private:
 public:
 	TestEntity();
 
-	void _ready() override;
-	void _process(float delta) override;
+	//void _ready() override;
+	//void _process(float delta) override;
 };
 
 #endif

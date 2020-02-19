@@ -24,7 +24,8 @@ struct Vector2 {
 	}
 
 	Vector2 normalized() const {
-		return *this / magnitude();
+		float m = magnitude();
+		return m == 0 ? Vector2{x, y} : Vector2{x / m, y / m};
 	}
 
 	float dot(const Vector2& rvalue) const {
