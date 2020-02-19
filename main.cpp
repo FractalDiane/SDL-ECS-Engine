@@ -59,7 +59,9 @@ int main() {
 				delta_time = ((dt_now - dt_last) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency())) * 0.001;
 
 				for (Entity* ent : entities) {
-					ent->_process(static_cast<float>(delta_time));
+					if (ent->is_process_enabled())
+						ent->_process(static_cast<float>(delta_time));
+						
 					for (Component* comp : ent->get_component_list())
 						comp->_process(surface);
 				}

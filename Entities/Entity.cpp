@@ -2,7 +2,7 @@
 
 #include "SDL2/SDL_image.h"
 
-Entity::Entity() : position{Vector2(0, 0)}, rotation{0}, scale{Vector2(1, 1)} {
+Entity::Entity() : position{Vector2(0, 0)}, rotation{0}, scale{Vector2(1, 1)}, process_enabled{false} {
 
 }
 
@@ -59,4 +59,14 @@ void Entity::set_rotation(const float& value) {
 
 void Entity::set_scale(const Vector2& value) {
 	scale = value;
+}
+
+
+bool Entity::is_process_enabled() const {
+	return process_enabled;
+}
+
+
+void Entity::set_process_enabled(bool value) {
+	process_enabled = value;
 }

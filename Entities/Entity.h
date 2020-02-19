@@ -12,10 +12,12 @@
 class Component;
 
 class Entity {
-private:
+protected:
 	Vector2 position;
 	float rotation;
 	Vector2 scale;
+
+	bool process_enabled;
 
 	std::vector<Component*> components;
 
@@ -47,6 +49,9 @@ public:
 	void set_position(const Vector2& value);
 	void set_rotation(const float& value);
 	void set_scale(const Vector2& value);
+
+	bool is_process_enabled() const;
+	void set_process_enabled(bool value);
 };
 
 #endif
