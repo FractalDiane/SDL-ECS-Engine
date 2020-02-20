@@ -4,16 +4,16 @@
 
 class Window {
 private:
-	SDL_Window* window;
-	SDL_Surface* base_surface;
+	static SDL_Window* window;
+	static SDL_Surface* base_surface;
 
 public:
-	Window(const char* title, unsigned int width, unsigned int height, unsigned int pixel_scale_h = 1, unsigned int pixel_scale_v = 1);
-	~Window();
+	static void create_window(const char* title, unsigned int width, unsigned int height, unsigned int pixel_scale_h = 1, unsigned int pixel_scale_v = 1);
+	static void destroy_window();
 
-	SDL_Window* get_sdl_window() const;
-	SDL_Surface* get_surface() const;
+	static SDL_Window* get_main_window();
+	static SDL_Surface* get_main_surface();
 
-	void clear();
-	void update();
+	static void clear();
+	static void update();
 };

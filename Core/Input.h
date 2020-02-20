@@ -12,9 +12,6 @@ private:
 	static std::unordered_set<SDL_Keycode> pressed_keys_momentary;
 	static std::unordered_set<SDL_Keycode> released_keys_momentary;
 
-	Input();
-	~Input();
-
 public:
 	enum class KeyEventType { Pressed, Released };
 

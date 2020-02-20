@@ -15,6 +15,7 @@ private:
 	Transform* player_transform;
 	Sprite* spr;
 
+
 public:
 	PlayerComponent(Transform* t, Sprite* sp) : player_transform{t}, spr{sp} {}
 

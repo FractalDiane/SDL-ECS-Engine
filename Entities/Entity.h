@@ -1,29 +1,15 @@
 #pragma once
 
-//#include "Component.h"
+#include <unordered_map>
+#include <typeindex>
+#include <typeinfo>
 
-//#include <unordered_map>
-//#include <typeindex>
-//#include <typeinfo>
-
-//class Component;
+class Component;
 
 class Entity {
 private:
 	unsigned long id;
-	//std::unordered_map<std::type_index, Component*> components;
-
-/*public:
-	template <typename C>
-	C* get_component() const {
-		return static_cast<C*>(components.at(typeid(C)));
-	}
-
-	void add_component(Component* comp);
-	const std::unordered_map<std::type_index, Component*>& get_component_list() const;
-
-	unsigned long get_id() const;
-	void set_id(unsigned long value);*/
+	std::unordered_map<std::type_index, Component*> component_refs;
 
 public:
 	Entity();
@@ -31,4 +17,21 @@ public:
 
 	unsigned long get_id() const;
 	void set_id(unsigned long value);
+
+	template <typename C>
+	void add_component(C* comp) {
+		component_refs[typeid(C)] = comp;
+		comp->set_owner(this);
+	}
+
+	template <typename C>
+	C* get_component();
 };
+
+
+#include "Component.h"
+
+template <typename C>
+C* Entity::get_component() {
+	return static_cast<C*>(component_refs[typeid(C)]);
+}

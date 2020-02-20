@@ -4,10 +4,6 @@ std::unordered_set<SDL_Keycode> Input::pressed_keys = {};
 std::unordered_set<SDL_Keycode> Input::pressed_keys_momentary = {};
 std::unordered_set<SDL_Keycode> Input::released_keys_momentary = {};
 
-Input::Input() {}
-
-Input::~Input() {}
-
 
 bool Input::is_key_held(SDL_Keycode key) {
 	return pressed_keys.find(key) != pressed_keys.end();

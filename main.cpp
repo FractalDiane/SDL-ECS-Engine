@@ -25,16 +25,16 @@ int main() {
 	Entity ent{};
 
 	Transform t{};
-	t.set_owner(&ent);
 
 	Sprite spr{"../Sprites/Boss.png"};
-	spr.set_owner(&ent);
-	spr.set_transform(&t);
 
 	PlayerComponent player{&t, &spr};
-	player.set_owner(&ent);
-	PlayerSystem psys{};
 
+	ent.add_component(&t);
+	ent.add_component(&spr);
+	ent.add_component(&player);
+
+	PlayerSystem psys{};
 	RenderSystem rsys{};
 
 	game_world.add_entity(&ent);
@@ -43,20 +43,20 @@ int main() {
 	game_world.add_component(&player);
 	game_world.add_system(&psys);
 	game_world.add_system(&rsys);
-
-	Window game_window{"SDL Test", 640, 480};
-	game_world.set_window(&game_window);
+	Window::create_window("SDL Test", 640, 480);
 
 	while (!game_world.game_quit()) {
 		game_world.poll_events();
 		game_world.tick_delta_time();
 
-		game_window.clear();
+		//game_window.clear();
+		Window::clear();
 
 		game_world.process_systems();
 
-		game_window.update();
+		Window::update();
 	}
 
+	Window::destroy_window();
 	SDL_Quit();
 }
