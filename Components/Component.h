@@ -13,8 +13,8 @@ public:
 	virtual void _comp_process(float delta, SDL_Surface* window_surface);
 
 protected:
-	Entity* parent;
+	Entity* owner;
 
 public:
-	void set_parent(Entity* value);
+	void set_owner(Entity* value);
 };

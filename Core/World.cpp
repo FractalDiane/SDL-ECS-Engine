@@ -4,20 +4,27 @@
 
 #include <SDL2/SDL_timer.h>
 
+unsigned long World::EntityCounter = 0;
 
 World::World() : dt_now{SDL_GetPerformanceCounter()}, dt_last{0}, delta_time_{0}, quit{false} {}
 World::~World() {}
 
 void World::add_entity(Entity* ent) {
 	entity_list.push_back(ent);
+	ent->set_id(EntityCounter++);
+}
+
+
+void World::add_system(System* sys) {
+	system_list.push_back(sys);
 }
 
 
 void World::initialize_entities() {
-	for (Entity* ent : entity_list) {
+	/*for (Entity* ent : entity_list) {
 		for (auto comp : ent->get_component_list())
 			comp.second->_comp_ready();
-	}
+	}*/
 }
 
 void World::poll_events() {
@@ -57,6 +64,16 @@ void World::process_systems() {
 
 double World::delta_time() const {
 	return delta_time_;
+}
+
+
+Window* World::get_window() const {
+	return window;
+}
+
+
+void World::set_window(Window* value) {
+	window = value;
 }
 
 

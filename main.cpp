@@ -5,20 +5,15 @@
 #include <vector>
 #include <cstdint>
 
-#include "TestEntity.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
-//#include "CustomBehavior.h"
+#include "PlayerComponent.h"
+#include "PlayerSystem.h"
+#include "RenderSystem.h"
+
 #include "Input.h"
 #include "World.h"
 #include "Window.h"
-
-void process_entities(const std::vector<Entity*>& entities, SDL_Surface* window_surface, const double& delta) {
-	for (Entity* ent : entities) {
-		for (auto comp : ent->get_component_list())
-			comp.second->_comp_process(static_cast<float>(delta), window_surface);
-	}
-}
 
 // ====================================================================================================================
 
@@ -27,24 +22,33 @@ int main() {
 	World game_world;
 
 	// Entities/Components
-	/*TestEntity test_ent{};
-	SpriteRenderer spr{"../Sprites/Boss.png"};
-	test_ent.add_component(&spr);
-	CustomBehavior cb{};
-	test_ent.add_component(&cb);
-	Transform tr{};
-	tr.set_position(Vector2{320, 240});
-	test_ent.add_component(&tr);
+	Entity ent{};
 
-	game_world.add_entity(&test_ent);*/
+	Transform t{};
+	t.set_owner(&ent);
+
+	SpriteRenderer spr{"../Sprites/Boss.png"};
+	spr.set_owner(&ent);
+
+	PlayerComponent player{&t, &spr};
+	player.set_owner(&ent);
+	PlayerSystem psys{};
+
+	RenderSystem rsys{};
+
+	game_world.add_entity(&ent);
+	game_world.add_component(&t);
+	game_world.add_component(&spr);
+	game_world.add_component(&player);
+	game_world.add_system(&psys);
+	game_world.add_system(&rsys);
 
 	Window game_window{"SDL Test", 640, 480};
 
 	while (!game_world.game_quit()) {
 		game_world.poll_events();
 		game_world.tick_delta_time();
-
-		
+		game_world.process_systems();
 
 		game_window.clear();
 		game_window.update();

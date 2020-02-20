@@ -4,8 +4,8 @@ Component::Component() {}
 Component::~Component() {}
 
 
-void Component::set_parent(Entity* value) {
-	parent = value;
+void Component::set_owner(Entity* value) {
+	owner = value;
 }
 
 
