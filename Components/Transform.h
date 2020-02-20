@@ -1,5 +1,4 @@
-#ifndef __TRANSFORM_H
-#define __TRANSFORM_H
+#pragma once
 
 #include "Component.h"
 #include "Vector2.h"
@@ -22,5 +21,3 @@ public:
 	void set_rotation(const float& value);
 	void set_scale(const Vector2& value);
 };
-
-#endif

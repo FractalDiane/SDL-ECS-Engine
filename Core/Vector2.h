@@ -1,5 +1,4 @@
-#ifndef __VECTOR2_H
-#define __VECTOR2_H
+#pragma once
 
 #include <cmath>
 
@@ -88,4 +87,5 @@ struct Vector2 {
 	}
 };
 
-#endif
+
+

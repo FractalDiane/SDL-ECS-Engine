@@ -8,48 +8,10 @@
 #include "TestEntity.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
-#include "CustomBehavior.h"
+//#include "CustomBehavior.h"
 #include "Input.h"
-
-std::vector<Entity*> entities;
-bool quit = false;
-
-
-void initialize_entities(const std::vector<Entity*>& entities) {
-	for (Entity* ent : entities) {
-		for (auto comp : ent->get_component_list())
-			comp.second->_comp_ready();
-	}
-}
-
-
-void poll_events(SDL_Event& event_handler) {
-	Input::update_momentary_keys();
-
-	while (SDL_PollEvent(&event_handler) != 0) {
-		switch (event_handler.type) {
-			case SDL_EventType::SDL_QUIT: {
-				quit = true;
-			} break;
-
-			case SDL_EventType::SDL_KEYDOWN: {
-				Input::process_input_event(Input::KeyEventType::Pressed, event_handler);
-			} break;
-
-			case SDL_EventType::SDL_KEYUP: {
-				Input::process_input_event(Input::KeyEventType::Released, event_handler);
-			} break;
-		}
-	}
-}
-
-
-void update_delta_time(std::uint64_t& dt_last, std::uint64_t& dt_now, double& delta_time) {
-	dt_last = dt_now;
-	dt_now = SDL_GetPerformanceCounter();
-	delta_time = ((dt_now - dt_last) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency())) * 0.001;
-}
-
+#include "World.h"
+#include "Window.h"
 
 void process_entities(const std::vector<Entity*>& entities, SDL_Surface* window_surface, const double& delta) {
 	for (Entity* ent : entities) {
@@ -62,13 +24,10 @@ void process_entities(const std::vector<Entity*>& entities, SDL_Surface* window_
 
 int main() {
 	// Inits
-	SDL_Window* window;
-	SDL_Surface* surface;
-	SDL_Event event_handler;
+	World game_world;
 
 	// Entities/Components
-	TestEntity test_ent{};
-	entities.push_back(&test_ent);
+	/*TestEntity test_ent{};
 	SpriteRenderer spr{"../Sprites/Boss.png"};
 	test_ent.add_component(&spr);
 	CustomBehavior cb{};
@@ -77,38 +36,19 @@ int main() {
 	tr.set_position(Vector2{320, 240});
 	test_ent.add_component(&tr);
 
-	// Init delta time
-	std::uint64_t dt_now = SDL_GetPerformanceCounter();
-	std::uint64_t dt_last = 0;
-	double delta_time = 0;
+	game_world.add_entity(&test_ent);*/
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		std::printf("ERROR: %s\n", SDL_GetError());
-	}
-	else {
-		window = SDL_CreateWindow("SDL Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
-		if (!window)
-			std::printf("ERROR: %s\n", SDL_GetError());
-		else {
-			surface = SDL_GetWindowSurface(window);
+	Window game_window{"SDL Test", 640, 480};
 
-			initialize_entities(entities);
+	while (!game_world.game_quit()) {
+		game_world.poll_events();
+		game_world.tick_delta_time();
 
-			while (!quit) {
-				poll_events(event_handler);
+		
 
-				update_delta_time(dt_last, dt_now, delta_time);
-
-				// Clear screen for drawing
-				SDL_FillRect(surface, nullptr, 0);
-
-				process_entities(entities, surface, delta_time);
-
-				SDL_UpdateWindowSurface(window);
-			}
-		}
+		game_window.clear();
+		game_window.update();
 	}
 
-	SDL_DestroyWindow(window);
 	SDL_Quit();
 }

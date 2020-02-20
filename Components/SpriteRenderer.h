@@ -1,5 +1,4 @@
-#ifndef __SPRITE_RENDERER_H
-#define __SPRITE_RENDERER_H
+#pragma once
 
 #include "Component.h"
 #include "Vector2.h"
@@ -16,5 +15,3 @@ public:
 
 	void _comp_process(float delta, SDL_Surface* window_surface) override;
 };
-
-#endif

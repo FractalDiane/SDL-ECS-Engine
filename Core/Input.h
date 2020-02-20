@@ -1,5 +1,4 @@
-#ifndef __INPUT_H
-#define __INPUT_H
+#pragma once
 
 #include <SDL2/SDL_keyboard.h>
 #include <SDL2/SDL_joystick.h>
@@ -28,4 +27,5 @@ public:
 	static void update_momentary_keys();
 };
 
-#endif
+
+

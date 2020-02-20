@@ -1,5 +1,4 @@
-#ifndef __COMPONENT_H
-#define __COMPONENT_H
+#pragma once
 
 #include <SDL2/SDL_surface.h>
 
@@ -19,5 +18,3 @@ protected:
 public:
 	void set_parent(Entity* value);
 };
-
-#endif

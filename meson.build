@@ -1,18 +1,17 @@
 project('SDL Test', 'cpp')
 deps = [dependency('SDL2'), dependency('SDL2_image')]
 src = [
-	'Components/Behavior.cpp',
+	'Core/Input.cpp',
+	'Core/Window.cpp',
+	'Core/World.cpp',
 	'Components/Component.cpp',
-	'Components/CustomBehavior.cpp',
 	'Components/SpriteRenderer.cpp',
 	'Components/Transform.cpp',
 	'Entities/Entity.cpp',
 	'Entities/TestEntity.cpp',
-	'System/Input.cpp',
-	#'System/System.cpp',
-	'System/World.cpp',
+	'Systems/PlayerSystem.cpp',
 	'main.cpp'
 ]
 
-incs = include_directories('Components', 'Entities', 'System')
+incs = include_directories('Core', 'Components', 'Entities', 'Systems')
 executable('SDLTest', src, include_directories: incs, dependencies: deps)
