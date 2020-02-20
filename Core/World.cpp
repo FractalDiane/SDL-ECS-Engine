@@ -20,13 +20,6 @@ void World::add_system(System* sys) {
 }
 
 
-void World::initialize_entities() {
-	/*for (Entity* ent : entity_list) {
-		for (auto comp : ent->get_component_list())
-			comp.second->_comp_ready();
-	}*/
-}
-
 void World::poll_events() {
 	Input::update_momentary_keys();
 

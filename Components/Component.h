@@ -6,10 +6,13 @@
 #include <typeinfo>
 #include <typeindex>
 
+#include "World.h"
+
 class Entity;
 
 class Component {
 private:
+	World* world;
 
 public:
 	Component();

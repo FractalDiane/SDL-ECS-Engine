@@ -1,7 +1,7 @@
 #include "Component.h"
 
-Component::Component() {}
-Component::~Component() {}
+Component::Component(World* world) { world->add_component(this); }
+Component::~Component() { /* world->remove_component(this); */ }
 
 
 void Component::set_owner(Entity* value) {

@@ -28,7 +28,7 @@ int main() {
 
 	Sprite spr{"../Sprites/Boss.png"};
 
-	PlayerComponent player{&t, &spr};
+	PlayerComponent player{};
 
 	ent.add_component(&t);
 	ent.add_component(&spr);
