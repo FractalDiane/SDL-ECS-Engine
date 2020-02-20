@@ -1,14 +1,14 @@
-#include "SpriteRenderer.h"
+#include "Sprite.h"
 
 #include <iostream>
 
-SpriteRenderer::SpriteRenderer(const char* image_file) {
+Sprite::Sprite(const char* image_file) {
 	image = IMG_Load(image_file);
 	if (!image)
 		std::cerr << "Failed to load image: " << image_file << "\n";
 }
 
 
-SpriteRenderer::~SpriteRenderer() {
+Sprite::~Sprite() {
 	SDL_FreeSurface(image);
 }

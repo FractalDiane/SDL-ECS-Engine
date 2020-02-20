@@ -2,7 +2,7 @@
 
 #include "Component.h"
 #include "Transform.h"
-#include "SpriteRenderer.h"
+#include "Sprite.h"
 
 #include <string>
 
@@ -10,15 +10,15 @@ class PlayerComponent : public Component {
 private:
 	std::string name;
 	unsigned int favorite_number;
-	float speed;
+	float speed = 150;
 
 	Transform* player_transform;
-	SpriteRenderer* spr;
+	Sprite* spr;
 
 public:
-	PlayerComponent(Transform* t, SpriteRenderer* sp) : player_transform{t}, spr{sp} {}
+	PlayerComponent(Transform* t, Sprite* sp) : player_transform{t}, spr{sp} {}
 
 	Transform* get_transform() { return player_transform; }
-	SpriteRenderer* get_sprite() { return spr; }
+	Sprite* get_sprite() { return spr; }
 	float get_speed() { return speed; }
 };

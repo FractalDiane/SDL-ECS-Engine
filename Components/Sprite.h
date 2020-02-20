@@ -5,14 +5,14 @@
 
 #include <SDL2/SDL_image.h>
 
-class SpriteRenderer : public Component {
+class Sprite : public Component {
 private:
 	SDL_Surface* image;
 	Transform* transform;
 
 public:
-	SpriteRenderer(const char* image_file);
-	~SpriteRenderer();
+	Sprite(const char* image_file);
+	~Sprite();
 
 	SDL_Surface* get_image() { return image; }
 

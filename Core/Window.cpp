@@ -4,7 +4,7 @@
 
 #include <cstdio>
 
-Window::Window(const char* title, int width, int height) {
+Window::Window(const char* title, unsigned int width, unsigned int height, unsigned int pixel_scale_h = 1, unsigned int pixel_scale_v = 1) {
 	int result = SDL_Init(SDL_INIT_VIDEO);
 	if (result < 0) {
 		std::fprintf(stderr, "ERROR: %s", SDL_GetError());
@@ -23,6 +23,11 @@ Window::Window(const char* title, int width, int height) {
 
 Window::~Window() {
 	SDL_DestroyWindow(window);
+}
+
+
+SDL_Window* Window::get_sdl_window() const {
+	return window;
 }
 
 

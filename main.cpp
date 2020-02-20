@@ -6,7 +6,7 @@
 #include <cstdint>
 
 #include "Transform.h"
-#include "SpriteRenderer.h"
+#include "Sprite.h"
 #include "PlayerComponent.h"
 #include "PlayerSystem.h"
 #include "RenderSystem.h"
@@ -27,8 +27,9 @@ int main() {
 	Transform t{};
 	t.set_owner(&ent);
 
-	SpriteRenderer spr{"../Sprites/Boss.png"};
+	Sprite spr{"../Sprites/Boss.png"};
 	spr.set_owner(&ent);
+	spr.set_transform(&t);
 
 	PlayerComponent player{&t, &spr};
 	player.set_owner(&ent);
@@ -44,13 +45,16 @@ int main() {
 	game_world.add_system(&rsys);
 
 	Window game_window{"SDL Test", 640, 480};
+	game_world.set_window(&game_window);
 
 	while (!game_world.game_quit()) {
 		game_world.poll_events();
 		game_world.tick_delta_time();
-		game_world.process_systems();
 
 		game_window.clear();
+
+		game_world.process_systems();
+
 		game_window.update();
 	}
 

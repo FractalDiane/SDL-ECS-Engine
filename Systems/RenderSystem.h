@@ -1,12 +1,12 @@
 #pragma once
 
 #include "System.h"
-#include "SpriteRenderer.h"
+#include "Sprite.h"
 
 class RenderSystem : public System {
 public:
 	void run(World& world) override;
 
 private:
-	void render_sprite(SpriteRenderer* spr, World& world);
+	void render_sprite(Sprite* spr, World& world);
 };

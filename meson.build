@@ -5,11 +5,12 @@ src = [
 	'Core/Window.cpp',
 	'Core/World.cpp',
 	'Components/Component.cpp',
-	'Components/SpriteRenderer.cpp',
+	'Components/Sprite.cpp',
 	'Components/Transform.cpp',
 	'Entities/Entity.cpp',
 	'Entities/TestEntity.cpp',
 	'Systems/PlayerSystem.cpp',
+	'Systems/RenderSystem.cpp',
 	'main.cpp'
 ]
 

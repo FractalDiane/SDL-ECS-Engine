@@ -8,7 +8,6 @@
 void PlayerSystem::run(World& world) {
 	for (auto p : world.get_components<PlayerComponent>()) {
 		player_input(world.delta_time(), p);
-		//std::cout << p->get_transform()->get_position().x << "\n";
 	}
 }
 
