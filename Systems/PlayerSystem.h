@@ -8,5 +8,5 @@ public:
 	void run(World& world) override;
 
 private:
-	void player_input(double delta, PlayerComponent* player);
+	void player_input(double delta, PlayerComponent* player, World& world);
 };

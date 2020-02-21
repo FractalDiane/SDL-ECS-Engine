@@ -1,6 +1,7 @@
 #include "Sprite.h"
 
 #include <iostream>
+#include <cstring>
 
 Sprite::Sprite(const char* image_file) {
 	image = IMG_Load(image_file);

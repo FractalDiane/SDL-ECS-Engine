@@ -16,6 +16,11 @@ World::~World() {
 	std::cout << "[ECS] DESTROYING EVERYTHING\n";
 	#endif
 
+	for (auto& pair : component_map) {
+		for (size_t i = 0; i < pair.second.size(); i++)
+			destroy_component(pair.second[i]);
+	}
+
 	for (size_t i = 0; i < entity_list.size(); i++)
 		destroy_entity(entity_list[i]);
 }
@@ -45,20 +50,27 @@ void World::destroy_entity(Entity* ent) {
 	std::cout << "[ECS] Destroying entity ID " << ent->get_id() << "\n";
 	#endif
 
-	for (auto& pair : ent->get_components()) {
-		#ifdef ECS_DEBUG
-		std::cout << "Found component type " << typeid(*(pair.second)).name() << "\n";
-		#endif
-
-		//destroy_component<decltype(pair.second)>(pair.second);
-		//destroy_component*reinterpret_cast<Vocter<C*>*>(&component_map.at(typeid(C)));
-		//destroy_component(dynamic_cast<typeid(*(pair.second))>(pair.second));)
-		//destroy_component(pair.second->get<Component>());
-	}
+	//for (auto& pair : ent->get_components())
+	//	destroy_component(pair.second);
 		
-
 	entity_list.erase(ent);
 	delete ent;
+}
+
+
+void World::destroy_component(Component* comp) {
+	auto& target_vec = component_map[typeid(*comp)];
+	for (size_t i = 0; i < target_vec.size(); i++) {
+		auto current_comp = target_vec[i];
+		if (current_comp == comp) {
+			#ifdef ECS_DEBUG
+			std::cout << "[ECS] Destroying entity ID " << comp->get_owner()->get_id() << "'s component (" << typeid(*current_comp).name() << ")\n";
+			#endif
+
+			target_vec.erase(current_comp);
+			delete current_comp;
+		}
+	}
 }
 
 

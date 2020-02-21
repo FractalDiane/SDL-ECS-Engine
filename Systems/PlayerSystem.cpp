@@ -10,12 +10,12 @@ void PlayerSystem::run(World& world) {
 	for (size_t i = 0; i < world.get_components<PlayerComponent>().size(); i++) {
 		PlayerComponent* p = world.get_components<PlayerComponent>()[i];
 		if (p)
-			player_input(world.delta_time(), p);
+			player_input(world.delta_time(), p, world);
 	}
 }
 
 
-void PlayerSystem::player_input(double delta, PlayerComponent* player) {
+void PlayerSystem::player_input(double delta, PlayerComponent* player, World& world) {
 	int x1 = Input::is_key_held(SDLK_RIGHT) ? 1 : 0;
 	int x2 = Input::is_key_held(SDLK_LEFT) ? 1 : 0;
 	int y1 = Input::is_key_held(SDLK_DOWN) ? 1 : 0;
@@ -25,4 +25,9 @@ void PlayerSystem::player_input(double delta, PlayerComponent* player) {
 
 	Vector2 pos = player->get_owner_component<Transform>()->get_position();
 	player->get_owner_component<Transform>()->set_position(Vector2{pos + vel});
+
+	if (Input::is_key_pressed(SDLK_t)) {
+		//world.destroy_entity(player->get_owner());
+		world.destroy_component(player);
+	}
 }

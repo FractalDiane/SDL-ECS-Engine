@@ -56,31 +56,12 @@ public:
 
 	void destroy_entity(Entity* ent);
 
-	template <typename C>
-	void destroy_component(C* comp) {
-		#ifdef ECS_DEBUG
-		std::cout << "[ECS] Attempting to destroy component " << typeid(C).name() << "\n";
-		#endif
-		
-		for (size_t i = 0; i < component_map[typeid(C)].size(); i++) {
-			if (component_map[typeid(C)][i] == comp) {
-				#ifdef ECS_DEBUG
-				std::cout << "[ECS] Destroying entity ID " << comp->get_owner()->get_id() << "'s component (" << typeid(C).name() << ")\n";
-				#endif
-
-				C* ptr = component_map[typeid(C)][i];
-				component_map[typeid(C)].erase(ptr);
-				delete ptr;
-			}
-		}
-	}
+	void destroy_component(Component* comp);
 
 	template <typename C>
 	const Vocter<C*>& get_components() {
 		return *reinterpret_cast<Vocter<C*>*>(&component_map.at(typeid(C)));
 	}
-
-	
 
 	void initialize_entities();
 	void poll_events();
