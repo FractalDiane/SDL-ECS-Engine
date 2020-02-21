@@ -15,7 +15,7 @@ private:
 		Cell() : occupied{false} {}
 	};
 
-public:
+//public:
 	/*typedef size_t size_type;
 
 	class iterator {

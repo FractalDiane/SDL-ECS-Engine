@@ -4,19 +4,61 @@
 
 #include <SDL2/SDL_timer.h>
 
+#ifdef ECS_DEBUG
+#include <iostream>
+#endif
+
 unsigned long World::EntityCounter = 0;
 
 World::World() : dt_now{SDL_GetPerformanceCounter()}, dt_last{0}, delta_time_{0}, quit{false} {}
-World::~World() {}
+World::~World() {
+	#ifdef ECS_DEBUG
+	std::cout << "[ECS] DESTROYING EVERYTHING\n";
+	#endif
+
+	for (size_t i = 0; i < entity_list.size(); i++)
+		destroy_entity(entity_list[i]);
+}
+
 
 void World::add_entity(Entity* ent) {
 	entity_list.push_back(ent);
 	ent->set_id(EntityCounter++);
+
+	#ifdef ECS_DEBUG
+	std::cout << "[ECS] Added a new entity (ID " << EntityCounter - 1 << ")\n";
+	#endif
 }
 
 
 void World::add_system(System* sys) {
 	system_list.push_back(sys);
+
+	#ifdef ECS_DEBUG
+	std::cout << "[ECS] Added a new system (" << typeid(*sys).name() << ")\n";
+	#endif
+}
+
+
+void World::destroy_entity(Entity* ent) {
+	#ifdef ECS_DEBUG
+	std::cout << "[ECS] Destroying entity ID " << ent->get_id() << "\n";
+	#endif
+
+	for (auto& pair : ent->get_components()) {
+		#ifdef ECS_DEBUG
+		std::cout << "Found component type " << typeid(*(pair.second)).name() << "\n";
+		#endif
+
+		//destroy_component<decltype(pair.second)>(pair.second);
+		//destroy_component*reinterpret_cast<Vocter<C*>*>(&component_map.at(typeid(C)));
+		//destroy_component(dynamic_cast<typeid(*(pair.second))>(pair.second));)
+		//destroy_component(pair.second->get<Component>());
+	}
+		
+
+	entity_list.erase(ent);
+	delete ent;
 }
 
 

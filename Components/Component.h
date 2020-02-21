@@ -22,6 +22,7 @@ protected:
 	Entity* owner;
 
 public:
+	Entity* get_owner() const;
 	void set_owner(Entity* value);
 
 	template <typename C>

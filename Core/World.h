@@ -14,6 +14,10 @@
 #include "Window.h"
 #include "Vocter.h"
 
+#ifdef ECS_DEBUG
+#include <iostream>
+#endif
+
 
 class World {
 private:
@@ -37,21 +41,46 @@ public:
 	World();
 	~World();
 
-	//const Vocter<Entity*>& get_entity_list() const;
 	void add_entity(Entity* ent);
-	void add_component(Component* comp);
+
+	template <typename C>
+	void add_component(C* comp) {
+		component_map[typeid(C)].push_back(comp);
+
+		#ifdef ECS_DEBUG
+		std::cout << "[ECS] Added component (" << typeid(C).name() << ")\n";
+		#endif
+	}
+
 	void add_system(System* system);
 
+	void destroy_entity(Entity* ent);
+
+	template <typename C>
+	void destroy_component(C* comp) {
+		#ifdef ECS_DEBUG
+		std::cout << "[ECS] Attempting to destroy component " << typeid(C).name() << "\n";
+		#endif
+		
+		for (size_t i = 0; i < component_map[typeid(C)].size(); i++) {
+			if (component_map[typeid(C)][i] == comp) {
+				#ifdef ECS_DEBUG
+				std::cout << "[ECS] Destroying entity ID " << comp->get_owner()->get_id() << "'s component (" << typeid(C).name() << ")\n";
+				#endif
+
+				C* ptr = component_map[typeid(C)][i];
+				component_map[typeid(C)].erase(ptr);
+				delete ptr;
+			}
+		}
+	}
 
 	template <typename C>
 	const Vocter<C*>& get_components() {
 		return *reinterpret_cast<Vocter<C*>*>(&component_map.at(typeid(C)));
 	}
 
-	template <typename C>
-	void add_component(C* comp) {
-		component_map[typeid(C)].push_back(comp);
-	}
+	
 
 	void initialize_entities();
 	void poll_events();

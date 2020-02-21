@@ -17,5 +17,7 @@ src = [
 	'main.cpp'
 ]
 
+add_global_arguments('-DECS_DEBUG', language : 'cpp')
+
 incs = include_directories('Core', 'Components', 'Entities', 'Systems')
 executable('SDLTest', src, include_directories: incs, dependencies: deps)

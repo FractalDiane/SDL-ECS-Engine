@@ -4,6 +4,8 @@
 #include <typeindex>
 #include <typeinfo>
 
+#include "Vocter.h"
+
 class Component;
 
 class Entity {
@@ -26,6 +28,8 @@ public:
 
 	template <typename C>
 	C* get_component();
+
+	const std::unordered_map<std::type_index, Component*>& get_components();
 };
 
 
