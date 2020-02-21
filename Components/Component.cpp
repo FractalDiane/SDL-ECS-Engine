@@ -1,6 +1,6 @@
 #include "Component.h"
 
-Component::Component(World* world) { world->add_component(this); }
+Component::Component() {}
 Component::~Component() { /* world->remove_component(this); */ }
 
 

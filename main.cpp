@@ -1,10 +1,3 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <cstdio>
-#include <iostream>
-#include <vector>
-#include <cstdint>
-
 #include "Transform.h"
 #include "Sprite.h"
 #include "PlayerComponent.h"
@@ -49,7 +42,6 @@ int main() {
 		game_world.poll_events();
 		game_world.tick_delta_time();
 
-		//game_window.clear();
 		Window::clear();
 
 		game_world.process_systems();

@@ -6,22 +6,22 @@
 
 #include <SDL2/SDL_events.h>
 
-#include <vector>
 #include <unordered_map>
 #include <typeinfo>
 #include <typeindex>
 #include <cstdint>
 
 #include "Window.h"
+#include "Vocter.h"
 
 
 class World {
 private:
 	static unsigned long EntityCounter;
 
-	std::vector<Entity*> entity_list;
-	std::unordered_map<std::type_index, std::vector<Component*>> component_map;
-	std::vector<System*> system_list;
+	Vocter<Entity*> entity_list;
+	std::unordered_map<std::type_index, Vocter<Component*>> component_map;
+	Vocter<System*> system_list;
 
 	SDL_Event event_handler;
 
@@ -37,15 +37,15 @@ public:
 	World();
 	~World();
 
-	//const std::vector<Entity*>& get_entity_list() const;
+	//const Vocter<Entity*>& get_entity_list() const;
 	void add_entity(Entity* ent);
 	void add_component(Component* comp);
 	void add_system(System* system);
 
 
 	template <typename C>
-	const std::vector<C*>& get_components() {
-		return *reinterpret_cast<std::vector<C*>*>(&component_map.at(typeid(C)));
+	const Vocter<C*>& get_components() {
+		return *reinterpret_cast<Vocter<C*>*>(&component_map.at(typeid(C)));
 	}
 
 	template <typename C>

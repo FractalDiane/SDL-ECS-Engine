@@ -49,8 +49,11 @@ void World::tick_delta_time() {
 
 
 void World::process_systems() {
-	for (System* sys : system_list) {
-		sys->run(*this);
+	//for (System* sys : system_list) {
+	for (size_t i = 0; i < system_list.size(); i++) {
+		System* sys = system_list[i];
+		if (sys)
+			sys->run(*this);
 	}
 }
 

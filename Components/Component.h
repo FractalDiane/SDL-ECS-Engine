@@ -11,9 +11,9 @@
 class Entity;
 
 class Component {
-private:
+/*private:
 	World* world;
-
+*/
 public:
 	Component();
 	virtual ~Component();
