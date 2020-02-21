@@ -2,8 +2,6 @@
 
 #include <initializer_list>
 #include <stdexcept>
-#include <iterator>
-#include <algorithm>
 
 template <typename T>
 class Vocter {
@@ -29,10 +27,55 @@ private:
 		iterator(pointer ptr) : ptr_{ptr} {}
 		self_type operator++() { self_type i = *this; ptr_++; return i; }
 		self_type operator++(size_t junk) { ptr_++; return *this; }
-		reference operator*() { return *ptr_; }
-		pointer operator->() { return ptr_; }
-		bool operator==(const self_type* rvalue) { return ptr_ == rvalue.ptr_; }
-		bool operator!=(const self_type* rvalue) { return ptr_ != rvalue.ptr_; }
+		reference operator*(
+#include <initializer_list>
+#include <stdexcept>
+
+template <typename T>
+class Vocter {
+private:
+	struct Cell {
+		bool occupied;
+		T item;
+
+		Cell() : occupied{false} {}
+	};
+
+//public:
+	/*typedef size_t size_type;
+
+	class iterator {
+	public:
+		typedef iterator self_type;
+		typedef T value_type;
+		typedef T& reference;
+		typedef Cell* pointer;
+		typedef std::forward_iterator_tag iterator_category;
+		typedef size_t diffe
+#include <initializer_list>
+#include <stdexcept>
+
+template <typename T>
+class Vocter {
+private:
+	struct Cell {
+		bool occupied;
+		T item;
+
+		Cell() : occupied{false} {}
+	};
+
+//public:
+	/*typedef size_t size_type;
+
+	class iterator {
+	public:
+		typedef iterator self_type;
+		typedef T value_type;
+		typedef T& reference;
+		typedef Cell* pointer;
+		typedef std::forward_iterator_tag iterator_category;
+		typedef size_t diffest self_type* rvalue) { return ptr_ != rvalue.ptr_; }
 	private:
 		pointer ptr_;
 	};

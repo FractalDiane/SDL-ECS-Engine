@@ -2,90 +2,56 @@
 
 #include <cmath>
 
+struct Vector2I;
+
 struct Vector2 {
 	float x;
 	float y;
 
-	Vector2() : x{0}, y{0} {}
-	Vector2(float x_, float y_) : x{x_}, y{y_} {}
-	Vector2(const Vector2& rvalue) : x{rvalue.x}, y{rvalue.y} {}
-	Vector2& operator=(const Vector2& rvalue) {
-		if (this != &rvalue) {
-			x = rvalue.x;
-			y = rvalue.y;
-		}
+	Vector2();
+	Vector2(float x_, float y_);
+	Vector2(const Vector2& rvalue);
+	Vector2& operator=(const Vector2& rvalue);
 
-		return *this;
-	}
+	operator Vector2I() const;
 
-	float magnitude() const {
-		return std::sqrt(x * x + y * y);
-	}
-
-	Vector2 normalized() const {
-		float m = magnitude();
-		return m == 0 ? Vector2{x, y} : Vector2{x / m, y / m};
-	}
-
-	float dot(const Vector2& rvalue) const {
-		return x * rvalue.x + y * rvalue.y;
-	}
+	float angle() const;
+	void set_rotation(float radians);
+	float magnitude() const;
+	Vector2 normalized() const;
+	float dot(const Vector2& rvalue) const;
+	float cross(const Vector2& rvalue) const;
+	float distance_to(const Vector2& rvalue) const;
+	float angle_to(const Vector2& rvalue) const;
+	Vector2 rotated(float by) const;
 
 
-	Vector2 operator+(const Vector2& rvalue) const {
-		return Vector2{x + rvalue.x, y + rvalue.y};
-	}
-
-	Vector2 operator-(const Vector2& rvalue) const {
-		return Vector2{x - rvalue.x , y - rvalue.y};
-	}
-
-	Vector2 operator*(const float& rvalue) const {
-		return Vector2{x * rvalue, y * rvalue};
-	}
-
-	Vector2 operator/(const float& rvalue) const {
-		return Vector2{x / rvalue, y / rvalue};
-	}
+	Vector2 operator+(const Vector2& rvalue) const;
+	Vector2 operator-(const Vector2& rvalue) const;
+	Vector2 operator*(const float& rvalue) const;
+	Vector2 operator/(const float& rvalue) const;
 
 
-	Vector2& operator+=(const Vector2& rvalue) {
-		x += rvalue.x;
-		y += rvalue.y;
-		return *this;
-	}
+	Vector2& operator+=(const Vector2& rvalue);
+	Vector2& operator-=(const Vector2& rvalue);
+	Vector2& operator*=(const float& rvalue);
+	Vector2& operator/=(const float& rvalue);
 
-	Vector2& operator-=(const Vector2& rvalue) {
-		x -= rvalue.x;
-		y -= rvalue.y;
-		return *this;
-	}
+	Vector2 operator-() const;
 
-	Vector2& operator*=(const float& rvalue) {
-		x *= rvalue;
-		y *= rvalue;
-		return *this;
-	}
-
-	Vector2& operator/=(const float& rvalue) {
-		x /= rvalue;
-		y /= rvalue;
-		return *this;
-	}
-
-	Vector2 operator-() const {
-		return *this * -1;
-	}
-
-
-	bool operator==(const Vector2& rvalue) const {
-		return x == rvalue.x && y == rvalue.y;
-	}
-
-	bool operator!=(const Vector2& rvalue) const {
-		return x != rvalue.x || y != rvalue.y;
-	}
+	bool operator==(const Vector2& rvalue) const;
+	bool operator!=(const Vector2& rvalue) const;
 };
 
 
+struct Vector2I {
+	int x;
+	int y;
 
+	Vector2I();
+	Vector2I(int x_, int y_);
+	Vector2I(const Vector2I& rvalue);
+	Vector2I& operator=(const Vector2I& rvalue);
+
+	operator Vector2() const;
+};

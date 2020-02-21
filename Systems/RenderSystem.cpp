@@ -9,8 +9,7 @@ void RenderSystem::run(World& world) {
 	//for (auto spr : world.get_components<Sprite>()) {
 	for (size_t i = 0; i < world.get_components<Sprite>().size(); i++) {
 		Sprite* spr = world.get_components<Sprite>()[i];
-		if (spr)
-			render_sprite(spr, spr->get_owner_component<Transform>(), world);
+		render_sprite(spr, spr->get_owner_component<Transform>(), world);
 	}
 }
 

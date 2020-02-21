@@ -8,6 +8,9 @@
 SDL_Window* Window::window = nullptr;
 SDL_Surface* Window::base_surface = nullptr;
 
+int Window::mouse_x = 0;
+int Window::mouse_y = 0;
+
 void Window::create_window(const char* title, unsigned int width, unsigned int height, unsigned int pixel_scale_h, unsigned int pixel_scale_v) {
 	int result = SDL_Init(SDL_INIT_VIDEO);
 	if (result < 0) {
@@ -40,11 +43,17 @@ SDL_Surface* Window::get_main_surface() {
 }
 
 
+Vector2I Window::get_mouse_position() {
+	return Vector2I{mouse_x, mouse_y};
+}
+
+
 void Window::clear() {
 	SDL_FillRect(base_surface, nullptr, 0);
 }
 
 
 void Window::update() {
+	SDL_GetMouseState(&mouse_x, &mouse_y);
 	SDL_UpdateWindowSurface(window);
 }

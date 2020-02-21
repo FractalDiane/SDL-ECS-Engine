@@ -54,7 +54,7 @@ public:
 
 	void add_system(System* system);
 
-	void destroy_entity(Entity* ent);
+	void destroy_entity(Entity* ent, bool destroy_components = true);
 
 	void destroy_component(Component* comp);
 

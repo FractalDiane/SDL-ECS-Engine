@@ -2,6 +2,7 @@ project('SDL Test', 'cpp')
 deps = [dependency('SDL2'), dependency('SDL2_image')]
 src = [
 	'Core/Input.cpp',
+	'Core/Vector2.cpp',
 	'Core/Window.cpp',
 	'Core/World.cpp',
 
@@ -11,6 +12,7 @@ src = [
 
 	'Entities/Entity.cpp',
 
+	'Systems/BulletSystem.cpp',
 	'Systems/PlayerSystem.cpp',
 	'Systems/RenderSystem.cpp',
 	

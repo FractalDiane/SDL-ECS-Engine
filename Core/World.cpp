@@ -13,16 +13,16 @@ unsigned long World::EntityCounter = 0;
 World::World() : dt_now{SDL_GetPerformanceCounter()}, dt_last{0}, delta_time_{0}, quit{false} {}
 World::~World() {
 	#ifdef ECS_DEBUG
-	std::cout << "[ECS] DESTROYING EVERYTHING\n";
+	std::cout << "[ECS] DESTROYING EVERYTHING (" << entity_list.size() << " entities and " << component_map.size() << " components)\n";
 	#endif
 
-	for (auto& pair : component_map) {
+	/*for (auto& pair : component_map) {
 		for (size_t i = 0; i < pair.second.size(); i++)
 			destroy_component(pair.second[i]);
-	}
+	}*/
 
 	for (size_t i = 0; i < entity_list.size(); i++)
-		destroy_entity(entity_list[i]);
+		destroy_entity(entity_list[i], false);
 }
 
 
@@ -45,14 +45,16 @@ void World::add_system(System* sys) {
 }
 
 
-void World::destroy_entity(Entity* ent) {
+void World::destroy_entity(Entity* ent, bool destroy_components) {
 	#ifdef ECS_DEBUG
 	std::cout << "[ECS] Destroying entity ID " << ent->get_id() << "\n";
 	#endif
 
-	//for (auto& pair : ent->get_components())
-	//	destroy_component(pair.second);
-		
+	if (destroy_components) {
+		for (auto& pair : ent->get_components())
+			destroy_component(pair.second);
+	}
+	
 	entity_list.erase(ent);
 	delete ent;
 }
