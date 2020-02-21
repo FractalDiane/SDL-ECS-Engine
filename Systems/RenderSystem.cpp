@@ -6,9 +6,9 @@
 #include <SDL2/SDL_surface.h>
 
 void RenderSystem::run(World& world) {
-	//for (auto spr : world.get_components<Sprite>()) {
-	for (size_t i = 0; i < world.get_components<Sprite>().size(); i++) {
-		Sprite* spr = world.get_components<Sprite>()[i];
+	for (auto spr : world.get_components<Sprite>()) {
+	//for (size_t i = 0; i < world.get_components<Sprite>().size(); i++) {
+		//Sprite* spr = world.get_components<Sprite>()[i];
 		render_sprite(spr, spr->get_owner_component<Transform>(), world);
 	}
 }

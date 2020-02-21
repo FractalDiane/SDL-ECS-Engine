@@ -4,6 +4,8 @@
 
 #include <SDL2/SDL_timer.h>
 
+#include <algorithm>
+
 #ifdef ECS_DEBUG
 #include <iostream>
 #endif
@@ -13,16 +15,22 @@ unsigned long World::EntityCounter = 0;
 World::World() : dt_now{SDL_GetPerformanceCounter()}, dt_last{0}, delta_time_{0}, quit{false} {}
 World::~World() {
 	#ifdef ECS_DEBUG
-	std::cout << "[ECS] DESTROYING EVERYTHING (" << entity_list.size() << " entities and " << component_map.size() << " components)\n";
+	int ccount = 0;
+	for (auto& pair : component_map)
+		ccount += pair.second.size();
+
+	std::cout << "[ECS] DESTROYING EVERYTHING (" << entity_list.size() << " entities and " << ccount << " components)\n";
 	#endif
 
-	/*for (auto& pair : component_map) {
-		for (size_t i = 0; i < pair.second.size(); i++)
-			destroy_component(pair.second[i]);
-	}*/
+	for (auto& pair : component_map) {
+		//for (size_t i = 0; i < pair.second.size(); i++)
+		for (Component* comp : pair.second)
+			destroy_component(comp);
+	}
 
-	for (size_t i = 0; i < entity_list.size(); i++)
-		destroy_entity(entity_list[i], false);
+	//for (size_t i = 0; i < entity_list.size(); i++)
+	for (Entity* ent : entity_list)
+		destroy_entity(ent, false);
 }
 
 
@@ -32,6 +40,15 @@ void World::add_entity(Entity* ent) {
 
 	#ifdef ECS_DEBUG
 	std::cout << "[ECS] Added a new entity (ID " << EntityCounter - 1 << ")\n";
+	#endif
+}
+
+
+void World::add_component(Component* comp) {
+	component_map[typeid(*comp)].push_back(comp);
+
+	#ifdef ECS_DEBUG
+	std::cout << "[ECS] Added component (" << typeid(*comp).name() << ")\n";
 	#endif
 }
 
@@ -55,7 +72,7 @@ void World::destroy_entity(Entity* ent, bool destroy_components) {
 			destroy_component(pair.second);
 	}
 	
-	entity_list.erase(ent);
+	entity_list.erase(std::remove(entity_list.begin(), entity_list.end(), ent));
 	delete ent;
 }
 
@@ -69,7 +86,7 @@ void World::destroy_component(Component* comp) {
 			std::cout << "[ECS] Destroying entity ID " << comp->get_owner()->get_id() << "'s component (" << typeid(*current_comp).name() << ")\n";
 			#endif
 
-			target_vec.erase(current_comp);
+			target_vec.erase(std::remove(target_vec.begin(), target_vec.end(), current_comp));
 			delete current_comp;
 		}
 	}

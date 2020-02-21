@@ -12,7 +12,8 @@
 #include <cstdint>
 
 #include "Window.h"
-#include "Vocter.h"
+//#include "Vocter.h"
+#include <vector>
 
 #ifdef ECS_DEBUG
 #include <iostream>
@@ -23,9 +24,9 @@ class World {
 private:
 	static unsigned long EntityCounter;
 
-	Vocter<Entity*> entity_list;
-	std::unordered_map<std::type_index, Vocter<Component*>> component_map;
-	Vocter<System*> system_list;
+	std::vector<Entity*> entity_list;
+	std::unordered_map<std::type_index, std::vector<Component*>> component_map;
+	std::vector<System*> system_list;
 
 	SDL_Event event_handler;
 
@@ -43,14 +44,7 @@ public:
 
 	void add_entity(Entity* ent);
 
-	template <typename C>
-	void add_component(C* comp) {
-		component_map[typeid(C)].push_back(comp);
-
-		#ifdef ECS_DEBUG
-		std::cout << "[ECS] Added component (" << typeid(C).name() << ")\n";
-		#endif
-	}
+	void add_component(Component* comp);
 
 	void add_system(System* system);
 
@@ -59,8 +53,8 @@ public:
 	void destroy_component(Component* comp);
 
 	template <typename C>
-	const Vocter<C*>& get_components() {
-		return *reinterpret_cast<Vocter<C*>*>(&component_map.at(typeid(C)));
+	const std::vector<C*>& get_components() {
+		return *reinterpret_cast<std::vector<C*>*>(&component_map.at(typeid(C)));
 	}
 
 	void initialize_entities();
