@@ -60,10 +60,11 @@ public:
 	template <typename C>
 	bool components_exist_of_type() {
 		try {
+			[[maybe_unused]]
 			auto& v = *reinterpret_cast<std::vector<C*>*>(&component_map.at(typeid(C)));
 			return true;
 		}
-		catch (std::out_of_range) {
+		catch (std::out_of_range&) {
 			return false;
 		}
 	}
@@ -84,5 +85,5 @@ public:
 	Window* get_window() const;
 	void set_window(Window* value);
 
-	bool game_quit() const;
+	bool is_game_quit() const;
 };

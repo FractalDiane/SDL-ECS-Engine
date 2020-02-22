@@ -7,6 +7,7 @@
 
 SDL_Window* Window::window = nullptr;
 SDL_Surface* Window::base_surface = nullptr;
+const char* Window::window_title = "";
 
 int Window::mouse_x = 0;
 int Window::mouse_y = 0;
@@ -25,6 +26,7 @@ void Window::create_window(const char* title, unsigned int width, unsigned int h
 	}
 
 	base_surface = SDL_GetWindowSurface(window);
+	window_title = title;
 }
 
 
@@ -40,6 +42,11 @@ SDL_Window* Window::get_main_window() {
 
 SDL_Surface* Window::get_main_surface() {
 	return base_surface;
+}
+
+
+const char* Window::get_title() { 
+	return window_title;
 }
 
 

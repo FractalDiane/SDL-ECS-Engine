@@ -12,12 +12,16 @@ private:
 	static int mouse_x;
 	static int mouse_y;
 
+	static const char* window_title;
+
 public:
 	static void create_window(const char* title, unsigned int width, unsigned int height, unsigned int pixel_scale_h = 1, unsigned int pixel_scale_v = 1);
 	static void destroy_window();
 
 	static SDL_Window* get_main_window();
 	static SDL_Surface* get_main_surface();
+
+	static const char* get_title();
 
 	static Vector2I get_mouse_position();
 

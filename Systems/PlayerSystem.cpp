@@ -1,7 +1,5 @@
 #include "PlayerSystem.h"
 
-#include <iostream>
-
 #include "World.h"
 #include "Input.h"
 

@@ -19,7 +19,11 @@ src = [
 	'main.cpp'
 ]
 
-add_global_arguments('-DECS_DEBUG', language : 'cpp')
+if get_option('buildtype').startswith('debug')
+	add_global_arguments('-DECS_DEBUG', '-DECS_SHOW_FPS', '-Og', '-g3', language : 'cpp')
+else
+	add_global_arguments('-O3', '-g0', language : 'cpp')
+endif
 
 incs = include_directories('Core', 'Components', 'Entities', 'Systems')
 executable('SDLTest', src, include_directories: incs, dependencies: deps)

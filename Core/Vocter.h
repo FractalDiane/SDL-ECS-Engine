@@ -42,7 +42,7 @@ private:
 	};
 
 //public:
-	/*typedef size_t size_type;
+	typedef size_t size_type;
 
 	class iterator {
 	public:
@@ -66,7 +66,7 @@ private:
 	};
 
 //public:
-	/*typedef size_t size_type;
+	typedef size_t size_type;
 
 	class iterator {
 	public:

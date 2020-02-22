@@ -10,6 +10,10 @@
 #include <iostream>
 #endif
 
+#ifdef ECS_SHOW_FPS
+#include <string>
+#endif
+
 unsigned long World::EntityCounter = 0;
 
 World::World() : dt_now{SDL_GetPerformanceCounter()}, dt_last{0}, delta_time_{0}, quit{false} {}
@@ -122,6 +126,10 @@ void World::tick_delta_time() {
 	dt_last = dt_now;
 	dt_now = SDL_GetPerformanceCounter();
 	delta_time_ = ((dt_now - dt_last) * 1000 / static_cast<double>(SDL_GetPerformanceFrequency())) * 0.001;
+
+	#ifdef ECS_SHOW_FPS
+	SDL_SetWindowTitle(Window::get_main_window(), (std::string{Window::get_title()} + " - " + std::to_string(static_cast<long>(1.0 / delta_time_)) + " FPS").c_str());
+	#endif
 }
 
 
@@ -150,7 +158,7 @@ void World::set_window(Window* value) {
 }
 
 
-bool World::game_quit() const {
+bool World::is_game_quit() const {
 	return quit;
 }
 
