@@ -59,14 +59,7 @@ public:
 
 	template <typename C>
 	bool components_exist_of_type() {
-		try {
-			[[maybe_unused]]
-			auto& v = *reinterpret_cast<std::vector<C*>*>(&component_map.at(typeid(C)));
-			return true;
-		}
-		catch (std::out_of_range&) {
-			return false;
-		}
+		return component_map.find(typeid(C)) != component_map.end();
 	}
 
 	template <typename C>
