@@ -23,6 +23,3 @@ public:
 
 	static void update_momentary_keys();
 };
-
-
-

@@ -9,4 +9,5 @@ public:
 
 private:
 	void player_input(double delta, PlayerComponent* player, World& world);
+	void fire_bullet(const Vector2& player_pos, World& world);
 };

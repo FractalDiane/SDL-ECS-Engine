@@ -2,10 +2,7 @@
 
 Entity::Entity() {}
 
-Entity::~Entity() {
-	/*for (auto pair : component_refs)
-		delete pair.second;*/
-}
+Entity::~Entity() {}
 
 
 unsigned long Entity::get_id() const {

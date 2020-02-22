@@ -10,4 +10,7 @@ private:
 
 public:
 	float get_speed() { return speed; }
+
+	const Vector2& get_velocity() { return velocity; }
+	void set_velocity(const Vector2& value) { velocity = value; }
 };
