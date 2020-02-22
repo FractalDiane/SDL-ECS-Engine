@@ -7,7 +7,7 @@
 #include <algorithm>
 
 #ifdef ECS_DEBUG
-#include <iostream>
+#include "ECSSystem.h"
 #endif
 
 #ifdef ECS_SHOW_FPS
@@ -19,11 +19,11 @@ unsigned long World::EntityCounter = 0;
 World::World() : dt_now{SDL_GetPerformanceCounter()}, dt_last{0}, delta_time_{0}, quit{false} {}
 World::~World() {
 	#ifdef ECS_DEBUG
-	int ccount = 0;
+	size_t ccount = 0;
 	for (auto& pair : component_map)
 		ccount += pair.second.size();
 
-	std::cout << "[ECS] DESTROYING EVERYTHING (" << entity_list.size() << " entities and " << ccount << " components)\n";
+	ECS_PRINT_MESSAGE("DESTROYING EVERYTHING (%lu entities and %lu components)", entity_list.size(), ccount);
 	#endif
 
 	for (auto& pair : component_map) {
@@ -43,7 +43,7 @@ void World::add_entity(Entity* ent) {
 	ent->set_id(EntityCounter++);
 
 	#ifdef ECS_DEBUG
-	std::cout << "[ECS] Added a new entity (ID " << EntityCounter - 1 << ")\n";
+	ECS_PRINT_MESSAGE("Added a new entity (ID %lu)", EntityCounter - 1);
 	#endif
 }
 
@@ -52,7 +52,7 @@ void World::add_component(Component* comp) {
 	component_map[typeid(*comp)].push_back(comp);
 
 	#ifdef ECS_DEBUG
-	std::cout << "[ECS] Added component (" << typeid(*comp).name() << ")\n";
+	ECS_PRINT_MESSAGE("Added a new component (%s)", typeid(*comp).name());
 	#endif
 }
 
@@ -61,14 +61,14 @@ void World::add_system(System* sys) {
 	system_list.push_back(sys);
 
 	#ifdef ECS_DEBUG
-	std::cout << "[ECS] Added a new system (" << typeid(*sys).name() << ")\n";
+	ECS_PRINT_MESSAGE("Added a new system (%s)", typeid(*sys).name());
 	#endif
 }
 
 
 void World::destroy_entity(Entity* ent, bool destroy_components, bool remove_from_list) {
 	#ifdef ECS_DEBUG
-	std::cout << "[ECS] Destroying entity ID " << ent->get_id() << "\n";
+	ECS_PRINT_MESSAGE("Destroying entity ID %lu", ent->get_id());
 	#endif
 
 	if (destroy_components) {
@@ -89,7 +89,7 @@ void World::destroy_component(Component* comp, bool remove_from_map) {
 		auto current_comp = target_vec[i];
 		if (current_comp == comp) {
 			#ifdef ECS_DEBUG
-			std::cout << "[ECS] Destroying entity ID " << comp->get_owner()->get_id() << "'s component (" << typeid(*current_comp).name() << ")\n";
+			ECS_PRINT_MESSAGE("Destroying entity ID %lu's component (%s)", comp->get_owner()->get_id(), typeid(*current_comp).name());
 			#endif
 
 			if (remove_from_map)

@@ -15,10 +15,6 @@
 //#include "Vocter.h"
 #include <vector>
 
-#ifdef ECS_DEBUG
-#include <iostream>
-#endif
-
 
 class World {
 private:

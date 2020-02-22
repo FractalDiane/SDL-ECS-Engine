@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-#include <cstdio>
+#include "ECSSystem.h"
 
 
 SDL_Window* Window::window = nullptr;
@@ -15,13 +15,13 @@ int Window::mouse_y = 0;
 void Window::create_window(const char* title, unsigned int width, unsigned int height, unsigned int pixel_scale_h, unsigned int pixel_scale_v) {
 	int result = SDL_Init(SDL_INIT_VIDEO);
 	if (result < 0) {
-		std::fprintf(stderr, "ERROR: %s", SDL_GetError());
+		ECS_PRINT_ERROR("%s", SDL_GetError());
 		std::abort();
 	}
 	
 	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
 	if (!window) {
-		std::fprintf(stderr, "ERROR: %s", SDL_GetError());
+		ECS_PRINT_ERROR("%s", SDL_GetError());
 		std::abort();
 	}
 

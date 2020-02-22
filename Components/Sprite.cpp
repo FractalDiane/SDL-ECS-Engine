@@ -1,12 +1,11 @@
 #include "Sprite.h"
 
-#include <iostream>
-#include <cstring>
+#include "ECSSystem.h"
 
 Sprite::Sprite(const char* image_file) {
 	image = IMG_Load(image_file);
 	if (!image)
-		std::cerr << "Failed to load image: " << image_file << "\n";
+		ECS_PRINT_ERROR("Failed to load image: %s", image_file);
 }
 
 
