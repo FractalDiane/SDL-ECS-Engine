@@ -4,8 +4,12 @@
 
 #include "World.h"
 #include "Input.h"
-#include "Transform.h"
+
 #include "Mathf.h"
+
+#include "Transform.h"
+#include "Sprite.h"
+#include "BulletComponent.h"
 
 void PlayerSystem::run(World& world) {
 	for (auto p : world.get_components<PlayerComponent>()) {
@@ -29,7 +33,20 @@ void PlayerSystem::player_input(double delta, PlayerComponent* player, World& wo
 	
 	player->get_owner_component<Transform>()->set_position(Vector2{pos + vel});
 
-	if (Input::is_key_pressed(SDLK_t)) {
-		world.destroy_entity(player->get_owner());
+	if (Input::is_key_pressed(SDLK_e)) {
+		Entity* bullet = new Entity{};
+		Transform* bullet_tr = new Transform{};
+		bullet_tr->set_position(pos);
+		Sprite* bullet_spr = new Sprite{"../Sprites/Fireball.png"};
+		BulletComponent* bullet_comp = new BulletComponent{};
+
+		bullet->add_component(bullet_tr);
+		bullet->add_component(bullet_spr);
+		bullet->add_component(bullet_comp);
+
+		world.add_entity(bullet);
+		world.add_component(bullet_tr);
+		world.add_component(bullet_spr);
+		world.add_component(bullet_comp);
 	}
 }

@@ -25,12 +25,12 @@ World::~World() {
 	for (auto& pair : component_map) {
 		//for (size_t i = 0; i < pair.second.size(); i++)
 		for (Component* comp : pair.second)
-			destroy_component(comp);
+			destroy_component(comp, false);
 	}
 
 	//for (size_t i = 0; i < entity_list.size(); i++)
 	for (Entity* ent : entity_list)
-		destroy_entity(ent, false);
+		destroy_entity(ent, false, false);
 }
 
 
@@ -62,7 +62,7 @@ void World::add_system(System* sys) {
 }
 
 
-void World::destroy_entity(Entity* ent, bool destroy_components) {
+void World::destroy_entity(Entity* ent, bool destroy_components, bool remove_from_list) {
 	#ifdef ECS_DEBUG
 	std::cout << "[ECS] Destroying entity ID " << ent->get_id() << "\n";
 	#endif
@@ -72,12 +72,14 @@ void World::destroy_entity(Entity* ent, bool destroy_components) {
 			destroy_component(pair.second);
 	}
 	
-	entity_list.erase(std::remove(entity_list.begin(), entity_list.end(), ent));
+	if (remove_from_list)
+		entity_list.erase(std::remove(entity_list.begin(), entity_list.end(), ent));
+
 	delete ent;
 }
 
 
-void World::destroy_component(Component* comp) {
+void World::destroy_component(Component* comp, bool remove_from_map) {
 	auto& target_vec = component_map[typeid(*comp)];
 	for (size_t i = 0; i < target_vec.size(); i++) {
 		auto current_comp = target_vec[i];
@@ -86,7 +88,9 @@ void World::destroy_component(Component* comp) {
 			std::cout << "[ECS] Destroying entity ID " << comp->get_owner()->get_id() << "'s component (" << typeid(*current_comp).name() << ")\n";
 			#endif
 
-			target_vec.erase(std::remove(target_vec.begin(), target_vec.end(), current_comp));
+			if (remove_from_map)
+				target_vec.erase(std::remove(target_vec.begin(), target_vec.end(), current_comp));
+
 			delete current_comp;
 		}
 	}
@@ -122,9 +126,9 @@ void World::tick_delta_time() {
 
 
 void World::process_systems() {
-	//for (System* sys : system_list) {
-	for (size_t i = 0; i < system_list.size(); i++) {
-		System* sys = system_list[i];
+	for (System* sys : system_list) {
+	//for (size_t i = 0; i < system_list.size(); i++) {
+		//System* sys = system_list[i];
 		if (sys)
 			sys->run(*this);
 	}
