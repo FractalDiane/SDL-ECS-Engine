@@ -9,7 +9,13 @@
 #include "Input.h"
 #include "World.h"
 #include "Window.h"
-#include "Mathf.h"
+
+#ifdef _WIN32
+#include <SDL.h>
+#undef main
+#else
+#include <SDL2/SDL.h>
+#endif
 
 #ifdef ECS_DEBUG
 #ifdef _MSC_VER

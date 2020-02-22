@@ -33,8 +33,8 @@ namespace Mathf {
 	constexpr inline int abs(int value) { return value < 0 ? -value : value; }
 	constexpr inline float abs(float value) { return value < 0 ? -value : value; }
 
-	constexpr inline float lerp(float from, float to, float weight) { return std::fma(weight, to, std::fma(-weight, from, from)); }
-	constexpr inline float lerp_delta(float from, float to, float weight, float delta) { return lerp(from, to, 1.0f - std::pow(weight, delta)); }
+	inline float lerp(float from, float to, float weight) { return std::fma(weight, to, std::fma(-weight, from, from)); }
+	inline float lerp_delta(float from, float to, float weight, float delta) { return lerp(from, to, 1.0f - std::pow(weight, delta)); }
 
 
 	inline int rand_range(int min, int max) {

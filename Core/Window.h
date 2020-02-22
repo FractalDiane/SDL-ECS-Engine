@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef _WIN32
+#include <SDL_video.h>
+#else
 #include <SDL2/SDL_video.h>
+#endif
 
 #include "Vector2.h"
 

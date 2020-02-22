@@ -1,3 +1,4 @@
 .vscode/
 build/
+SDL ECS Engine/
 *.o

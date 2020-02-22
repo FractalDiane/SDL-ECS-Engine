@@ -3,7 +3,11 @@
 #include "World.h"
 #include "Vector2.h"
 
+#ifdef _WIN32
+#include <SDL_surface.h>
+#else
 #include <SDL2/SDL_surface.h>
+#endif
 
 void RenderSystem::run(World& world) {
 	for (auto* spr : world.get_components<Sprite>()) {

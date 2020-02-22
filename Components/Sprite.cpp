@@ -5,7 +5,7 @@
 Sprite::Sprite(const char* image_file) {
 	image = IMG_Load(image_file);
 	if (!image)
-		ECS_PRINT_ERROR("Failed to load image: %s", image_file);
+		ECS_PRINT_ERROR("Failed to load image: %s (%s)", image_file, IMG_GetError());
 }
 
 

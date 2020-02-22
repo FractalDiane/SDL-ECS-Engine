@@ -1,6 +1,10 @@
 #pragma once
 
+#ifdef _WIN32
+#include <SDL_surface.h>
+#else
 #include <SDL2/SDL_surface.h>
+#endif
 
 #include <unordered_map>
 #include <typeinfo>
@@ -11,9 +15,6 @@
 class Entity;
 
 class Component {
-/*private:
-	World* world;
-*/
 public:
 	Component();
 	virtual ~Component();

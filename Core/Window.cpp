@@ -1,6 +1,10 @@
 #include "Window.h"
 
+#ifdef _WIN32
+#include <SDL.h>
+#else
 #include <SDL2/SDL.h>
+#endif
 
 #include "ECSSystem.h"
 
@@ -15,13 +19,13 @@ int Window::mouse_y = 0;
 void Window::create_window(const char* title, unsigned int width, unsigned int height, unsigned int pixel_scale_h, unsigned int pixel_scale_v) {
 	int result = SDL_Init(SDL_INIT_VIDEO);
 	if (result < 0) {
-		ECS_PRINT_ERROR("%s", SDL_GetError());
+		ECS_PRINT_ERROR("Failed to initialize SDL (%s)", SDL_GetError());
 		std::abort();
 	}
 	
 	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
 	if (!window) {
-		ECS_PRINT_ERROR("%s", SDL_GetError());
+		ECS_PRINT_ERROR("Failed to create SDL window (%s)", SDL_GetError());
 		std::abort();
 	}
 

@@ -1,8 +1,14 @@
 #pragma once
 
+#ifdef _WIN32
+#include <SDL_keyboard.h>
+#include <SDL_joystick.h>
+#include <SDL_events.h>
+#else
 #include <SDL2/SDL_keyboard.h>
 #include <SDL2/SDL_joystick.h>
 #include <SDL2/SDL_events.h>
+#endif
 
 #include <unordered_set>
 
