@@ -25,6 +25,12 @@ void RenderSystem::run(World& world) {
 			render_animated_sprite(spr, spr->get_owner_component<Transform>(), world);
 		}
 	}
+
+	if (world.components_exist_of_type<BoxCollider>()) {
+		for (auto* box : world.get_components<BoxCollider>()) {
+			draw_collider(box, world);
+		}
+	}
 }
 
 
@@ -59,4 +65,16 @@ void RenderSystem::render_animated_sprite(AnimatedSprite* spr, Transform* tr, Wo
 
 		SDL_RenderCopyEx(Window::get_renderer(), spr->current_frame_texture(), nullptr, &pos_rect, rot, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 	}
+}
+
+
+void RenderSystem::draw_collider(BoxCollider* coll, World& world) {
+	SDL_SetRenderDrawColor(Window::get_renderer(), 0, 255, 0, 128);
+
+	Vector2 pos = coll->get_owner_component<Transform>()->get_position();
+
+	SDL_SetRenderDrawBlendMode(Window::get_renderer(), SDL_BLENDMODE_BLEND);
+	SDL_Rect draw_rect{pos.x, pos.y, coll->get_extent_x(), coll->get_extent_y()};
+	SDL_RenderFillRect(Window::get_renderer(), &draw_rect);
+	SDL_SetRenderDrawBlendMode(Window::get_renderer(), SDL_BLENDMODE_NONE);
 }

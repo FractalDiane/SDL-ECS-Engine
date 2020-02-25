@@ -27,14 +27,15 @@ void PlayerSystem::player_input(double delta, PlayerComponent* player, World& wo
 	int y1 = Input::is_key_held(SDLK_DOWN) || Input::is_key_held(SDLK_s) ? 1 : 0;
 	int y2 = Input::is_key_held(SDLK_UP) || Input::is_key_held(SDLK_w) ? 1 : 0;
 
-	Vector2 vel = Vector2{float(x1 - x2), float(y1 - y2)}.normalized() * player->get_speed() * delta;
+	Vector2I vel{x1 - x2, y1 - y2};
+	Vector2 vel_mod = Vector2{vel}.normalized() * player->get_speed() * delta;
 
 	Vector2 pos = player->get_owner_component<Transform>()->get_position();
 	
-	player->get_owner_component<Transform>()->set_position(Vector2{pos + vel});
+	player->get_owner_component<Transform>()->set_position(Vector2{pos + vel_mod});
 
 	direction_management(vel, player);
-	sprite_management(player, player->get_owner_component<AnimatedSprite>(), vel);
+	sprite_management(player, player->get_owner_component<AnimatedSprite>(), vel_mod);
 
 	if (Input::is_mouse_button_pressed(Input::MouseButton::ButtonLeft)) {
 		fire_bullet(pos, world);
@@ -42,9 +43,9 @@ void PlayerSystem::player_input(double delta, PlayerComponent* player, World& wo
 }
 
 
-void PlayerSystem::direction_management(const Vector2& velocity, PlayerComponent* player) {
+void PlayerSystem::direction_management(const Vector2I& velocity, PlayerComponent* player) {
 	if (velocity.x == 0) {
-		switch (int(velocity.y)) {
+		switch (velocity.y) {
 			case -1:
 				player->set_direction(PlayerComponent::Direction::Up);
 				break;
@@ -54,7 +55,7 @@ void PlayerSystem::direction_management(const Vector2& velocity, PlayerComponent
 		}
 	}
 	else if (velocity.y == 0) {
-		switch (int(velocity.x)) {
+		switch (velocity.x) {
 			case -1:
 				player->set_direction(PlayerComponent::Direction::Left);
 				break;

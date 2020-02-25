@@ -21,23 +21,7 @@
 unsigned long World::EntityCounter = 0;
 
 World::World() : dt_now{SDL_GetPerformanceCounter()}, dt_last{0}, delta_time_{0}, quit{false} {}
-World::~World() {
-	#ifdef ECS_DEBUG
-	size_t ccount = 0;
-	for (auto& pair : component_map)
-		ccount += pair.second.size();
-
-	ECS_PRINT_MESSAGE("DESTROYING EVERYTHING (%lu entities and %lu components)", entity_list.size(), ccount);
-	#endif
-
-	for (auto& pair : component_map) {
-		for (Component* comp : pair.second)
-			destroy_component(comp, false);
-	}
-
-	for (Entity* ent : entity_list)
-		destroy_entity(ent, false, false);
-}
+World::~World() {}
 
 
 void World::add_entity(Entity* ent) {
@@ -170,3 +154,21 @@ bool World::is_game_quit() const {
 	return quit;
 }
 
+
+void World::cleanup() {
+	#ifdef ECS_DEBUG
+	size_t ccount = 0;
+	for (auto& pair : component_map)
+		ccount += pair.second.size();
+
+	ECS_PRINT_MESSAGE("DESTROYING EVERYTHING (%lu entities and %lu components)", entity_list.size(), ccount);
+	#endif
+
+	for (auto& pair : component_map) {
+		for (Component* comp : pair.second)
+			destroy_component(comp, false);
+	}
+
+	for (Entity* ent : entity_list)
+		destroy_entity(ent, false, false);
+}

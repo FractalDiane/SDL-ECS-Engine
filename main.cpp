@@ -6,6 +6,7 @@
 #include "RenderSystem.h"
 #include "BulletComponent.h"
 #include "BulletSystem.h"
+#include "BoxCollider.h"
 
 #include "Input.h"
 #include "World.h"
@@ -91,6 +92,10 @@ int main() {
 	game_world.add_system(&rsys);
 	game_world.add_system(&bsys);
 
+	BoxCollider* coll = new BoxCollider{Vector2{0, 0}, 10, 10};
+	ent->add_component(coll);
+	game_world.add_component(coll);
+
 	while (!game_world.is_game_quit()) {
 		game_world.poll_events();
 		game_world.tick_delta_time();
@@ -102,6 +107,7 @@ int main() {
 		Window::update();
 	}
 
+	game_world.cleanup();
 	Window::destroy_window();
 	SDL_Quit();
 }

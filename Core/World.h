@@ -79,4 +79,6 @@ public:
 	void set_window(Window* value);
 
 	bool is_game_quit() const;
+
+	void cleanup();
 };
