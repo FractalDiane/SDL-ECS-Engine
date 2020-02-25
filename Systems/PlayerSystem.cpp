@@ -12,8 +12,6 @@
 void PlayerSystem::run(World& world) {
 	if (world.components_exist_of_type<PlayerComponent>()) {
 		for (auto* p : world.get_components<PlayerComponent>()) {
-		//for (size_t i = 0; i < world.get_components<PlayerComponent>().size(); i++) {
-			//PlayerComponent* p = world.get_components<PlayerComponent>()[i];
 			player_input(world.delta_time(), p, world);
 		}
 	}

@@ -20,7 +20,7 @@ src = [
 ]
 
 if get_option('buildtype').startswith('debug')
-	add_global_arguments('-DECS_DEBUG', '-DECS_SHOW_FPS', '-Og', '-g3', language : 'cpp')
+	add_global_arguments('-DECS_DEBUG', '-DECS_SHOW_FPS', '-Og', '-g3', '-Wpedantic', language : 'cpp')
 else
 	add_global_arguments('-O3', '-g0', language : 'cpp')
 endif

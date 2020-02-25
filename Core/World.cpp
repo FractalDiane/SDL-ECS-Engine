@@ -31,12 +31,10 @@ World::~World() {
 	#endif
 
 	for (auto& pair : component_map) {
-		//for (size_t i = 0; i < pair.second.size(); i++)
 		for (Component* comp : pair.second)
 			destroy_component(comp, false);
 	}
 
-	//for (size_t i = 0; i < entity_list.size(); i++)
 	for (Entity* ent : entity_list)
 		destroy_entity(ent, false, false);
 }
@@ -139,8 +137,6 @@ void World::tick_delta_time() {
 
 void World::process_systems() {
 	for (System* sys : system_list) {
-	//for (size_t i = 0; i < system_list.size(); i++) {
-		//System* sys = system_list[i];
 		if (sys)
 			sys->run(*this);
 	}
