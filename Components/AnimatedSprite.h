@@ -5,8 +5,12 @@
 #include "Vector2.h"
 #include "Mathf.h"
 
+#include "ECSSystem.h"
+
 #include <vector>
+#include <unordered_map>
 #include <initializer_list>
+#include <string>
 
 #ifdef _WIN32
 #include <SDL_image.h>
@@ -16,29 +20,42 @@
 
 class AnimatedSprite : public Component {
 private:
-	std::vector<SDL_Texture*> sprite_frames;
-	std::vector<Vector2I> sprite_sizes;
-	const std::vector<unsigned int> image_sequence;
+	struct Animation {
+		std::vector<unsigned int> image_sequence;
+		float fps;
+	};
+
+	std::vector<SDL_Texture*> textures;
+	std::vector<Vector2I> texture_sizes;
+	std::unordered_map<std::string, Animation*> animations;
+	std::string current_animation;
 	float animation_speed;
 	unsigned int frame;
 	double anim_time;
 
 public:
-	AnimatedSprite(std::initializer_list<const char*> image_files, std::initializer_list<unsigned int> image_sequence, float animation_speed_ = 5.0f);
+	AnimatedSprite();
 	~AnimatedSprite();
 
-	const std::vector<SDL_Texture*>& get_sprite_frames() { return sprite_frames; }
-	SDL_Texture* current_frame_texture() { return sprite_frames[image_sequence[frame]]; }
+	bool has_animations() { return animations.size() > 0; }
 
-	float get_animation_speed() { return animation_speed; }
-	void set_animation_speed(const float& value) { animation_speed = value; }
+	void add_textures(std::initializer_list<const char*> image_files);
+	void add_animation(const std::string& name, std::initializer_list<unsigned int> image_sequence, float animation_speed_ = 5.0f);
+
+	SDL_Texture* current_frame_texture() { return textures[animations[current_animation]->image_sequence[frame]]; }
+
+	void play_animation(const std::string& animation);
+	const std::string& get_current_animation() { return current_animation; }
+
+	float get_animation_speed() { return animations[current_animation]->fps; }
+	//void set_animation_speed(const float& value) { animation_speed = value; }
 
 	unsigned int current_frame() { return frame; }
-	void advance_frame() { frame = Mathf::wrap(++frame, 0, image_sequence.size() - 1); }
+	void advance_frame() { frame = Mathf::wrap(++frame, 0, animations[current_animation]->image_sequence.size() - 1); }
 
 	double get_anim_time() { return anim_time; }
 	void add_anim_time(const double& value) { anim_time += value; }
 	void reset_anim_time() { anim_time = 0; }
 
-	const Vector2I& sprite_size() { return sprite_sizes[image_sequence[frame]]; }
+	const Vector2I& sprite_size() { return texture_sizes[animations[current_animation]->image_sequence[frame]]; }
 };

@@ -8,6 +8,8 @@ struct Vector2 {
 	float x;
 	float y;
 
+	static const Vector2 Zero;
+
 	Vector2();
 	Vector2(float x_, float y_);
 	Vector2(const Vector2& rvalue);

@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+const Vector2 Vector2::Zero = Vector2{0, 0};
+
 Vector2::Vector2() : x{0}, y{0} {}
 Vector2::Vector2(float x_, float y_) : x{x_}, y{y_} {}
 Vector2::Vector2(const Vector2& rvalue) : x{rvalue.x}, y{rvalue.y} {}

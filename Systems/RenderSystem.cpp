@@ -43,7 +43,7 @@ void RenderSystem::render_sprite(Sprite* spr, Transform* tr, World& world) {
 
 
 void RenderSystem::render_animated_sprite(AnimatedSprite* spr, Transform* tr, World& world) {
-	if (tr) {
+	if (tr && spr->has_animations()) {
 		spr->add_anim_time(world.delta_time());
 		if (spr->get_anim_time() >= 1.0 / spr->get_animation_speed()) {
 			spr->advance_frame();

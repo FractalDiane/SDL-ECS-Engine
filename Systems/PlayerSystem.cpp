@@ -9,6 +9,9 @@
 #include "Sprite.h"
 #include "BulletComponent.h"
 
+#include <cmath>
+#include <string>
+
 void PlayerSystem::run(World& world) {
 	if (world.components_exist_of_type<PlayerComponent>()) {
 		for (auto* p : world.get_components<PlayerComponent>()) {
@@ -30,9 +33,60 @@ void PlayerSystem::player_input(double delta, PlayerComponent* player, World& wo
 	
 	player->get_owner_component<Transform>()->set_position(Vector2{pos + vel});
 
+	direction_management(vel, player);
+	sprite_management(player, player->get_owner_component<AnimatedSprite>(), vel);
+
 	if (Input::is_mouse_button_pressed(Input::MouseButton::ButtonLeft)) {
 		fire_bullet(pos, world);
 	}
+}
+
+
+void PlayerSystem::direction_management(const Vector2& velocity, PlayerComponent* player) {
+	if (velocity.x == 0) {
+		switch (int(velocity.y)) {
+			case -1:
+				player->set_direction(PlayerComponent::Direction::Up);
+				break;
+			case 1:
+				player->set_direction(PlayerComponent::Direction::Down);
+				break;
+		}
+	}
+	else if (velocity.y == 0) {
+		switch (int(velocity.x)) {
+			case -1:
+				player->set_direction(PlayerComponent::Direction::Left);
+				break;
+			case 1:
+				player->set_direction(PlayerComponent::Direction::Right);
+				break;
+		}
+	}
+}
+
+
+void PlayerSystem::sprite_management(PlayerComponent* player, AnimatedSprite* spr, const Vector2& velocity) {
+	std::string anim;
+	switch (player->get_direction()) {
+		case PlayerComponent::Direction::Up:
+			anim = "up";
+			break;
+		case PlayerComponent::Direction::Down:
+			anim = "down";
+			break;
+		case PlayerComponent::Direction::Left:
+			anim = "left";
+			break;
+		case PlayerComponent::Direction::Right:
+			anim = "right";
+			break;
+	}
+
+	if (velocity != Vector2::Zero)
+		anim += "_walk";
+
+	spr->play_animation(anim.c_str());
 }
 
 

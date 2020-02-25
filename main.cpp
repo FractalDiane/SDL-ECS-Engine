@@ -36,15 +36,42 @@ int main() {
 	// Entities/Components
 	Entity* ent = new Entity{};
 	Transform* t = new Transform{};
+	t->set_scale(Vector2{2, 2});
 
-	//Sprite* spr = new Sprite{"../Sprites/Player_down.png"};
-	AnimatedSprite* spr = new AnimatedSprite{{
-		"../Sprites/Player_down.png",
-		"../Sprites/Player_down2.png",
-		"../Sprites/Player_down3.png",
-		"../Sprites/Player_down4.png",
-		"../Sprites/Player_down5.png"}, {
-		0, 1, 2, 1, 0, 3, 4, 3}, 10};
+	AnimatedSprite* spr = new AnimatedSprite{};
+	spr->add_textures({
+		"../Sprites/Player/Player_up.png",
+		"../Sprites/Player/Player_up2.png",
+		"../Sprites/Player/Player_up3.png",
+		"../Sprites/Player/Player_up4.png",
+		"../Sprites/Player/Player_up5.png",
+		
+		"../Sprites/Player/Player_down.png",
+		"../Sprites/Player/Player_down2.png",
+		"../Sprites/Player/Player_down3.png",
+		"../Sprites/Player/Player_down4.png",
+		"../Sprites/Player/Player_down5.png",
+		
+		"../Sprites/Player/Player_left.png",
+		"../Sprites/Player/Player_left2.png",
+		"../Sprites/Player/Player_left3.png",
+		"../Sprites/Player/Player_left4.png",
+		"../Sprites/Player/Player_left5.png",
+
+		"../Sprites/Player/Player_right.png",
+		"../Sprites/Player/Player_right2.png",
+		"../Sprites/Player/Player_right3.png",
+		"../Sprites/Player/Player_right4.png",
+		"../Sprites/Player/Player_right5.png"});
+
+	spr->add_animation("up", {0});
+	spr->add_animation("up_walk", {1, 2, 1, 0, 3, 4, 3, 0}, 10.0);
+	spr->add_animation("down", {5});
+	spr->add_animation("down_walk", {6, 7, 6, 5, 8, 9, 8, 5}, 10.0);
+	spr->add_animation("left", {10});
+	spr->add_animation("left_walk", {11, 12, 11, 10, 13, 14, 13, 10}, 10.0);
+	spr->add_animation("right", {15});
+	spr->add_animation("right_walk", {16, 17, 16, 15, 18, 19, 18, 15}, 10.0);
 
 	PlayerComponent* player = new PlayerComponent{};
 	
