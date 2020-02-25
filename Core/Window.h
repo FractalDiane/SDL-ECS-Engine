@@ -13,7 +13,6 @@
 class Window {
 private:
 	static SDL_Window* window;
-	//static SDL_Surface* base_surface;
 	static SDL_Renderer* renderer;
 
 	static int mouse_x;
@@ -26,7 +25,6 @@ public:
 	static void destroy_window();
 
 	static SDL_Window* get_main_window();
-	//static SDL_Surface* get_main_surface();
 	static SDL_Renderer* get_renderer();
 
 	static const char* get_title();

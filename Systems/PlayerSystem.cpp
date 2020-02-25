@@ -10,10 +10,12 @@
 #include "BulletComponent.h"
 
 void PlayerSystem::run(World& world) {
-	for (auto* p : world.get_components<PlayerComponent>()) {
-	//for (size_t i = 0; i < world.get_components<PlayerComponent>().size(); i++) {
-		//PlayerComponent* p = world.get_components<PlayerComponent>()[i];
-		player_input(world.delta_time(), p, world);
+	if (world.components_exist_of_type<PlayerComponent>()) {
+		for (auto* p : world.get_components<PlayerComponent>()) {
+		//for (size_t i = 0; i < world.get_components<PlayerComponent>().size(); i++) {
+			//PlayerComponent* p = world.get_components<PlayerComponent>()[i];
+			player_input(world.delta_time(), p, world);
+		}
 	}
 }
 
@@ -45,6 +47,7 @@ void PlayerSystem::fire_bullet(const Vector2& player_pos, World& world) {
 
 	Vector2 dir = Vector2{-1, 0}.rotated(player_pos.angle_to(Window::get_mouse_position()));
 	bullet_tr->set_rotation(Mathf::rad2deg(dir.angle()));
+	bullet_tr->set_scale(Vector2{2, 2});
 	bullet_comp->set_velocity(dir);
 
 	bullet->add_component(bullet_tr);

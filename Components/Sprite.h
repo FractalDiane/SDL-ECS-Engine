@@ -19,7 +19,6 @@ public:
 	Sprite(const char* image_file);
 	~Sprite();
 
-	//SDL_Surface* get_image() { return image; }
 	SDL_Texture* get_texture() { return texture; }
 	const Vector2I& sprite_size() { return sprite_size_; }
 };

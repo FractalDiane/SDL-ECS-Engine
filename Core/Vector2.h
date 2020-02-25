@@ -25,12 +25,10 @@ struct Vector2 {
 	float angle_to(const Vector2& rvalue) const;
 	Vector2 rotated(float by) const;
 
-
 	Vector2 operator+(const Vector2& rvalue) const;
 	Vector2 operator-(const Vector2& rvalue) const;
 	Vector2 operator*(const float& rvalue) const;
 	Vector2 operator/(const float& rvalue) const;
-
 
 	Vector2& operator+=(const Vector2& rvalue);
 	Vector2& operator-=(const Vector2& rvalue);
