@@ -10,7 +10,8 @@
 
 
 SDL_Window* Window::window = nullptr;
-SDL_Surface* Window::base_surface = nullptr;
+//SDL_Surface* Window::base_surface = nullptr;
+SDL_Renderer* Window::renderer = nullptr;
 const char* Window::window_title = "";
 
 int Window::mouse_x = 0;
@@ -29,12 +30,15 @@ void Window::create_window(const char* title, unsigned int width, unsigned int h
 		std::abort();
 	}
 
-	base_surface = SDL_GetWindowSurface(window);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+	//base_surface = SDL_GetWindowSurface(window);
 	window_title = title;
 }
 
 
 void Window::destroy_window() {
+	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 }
 
@@ -44,8 +48,12 @@ SDL_Window* Window::get_main_window() {
 }
 
 
-SDL_Surface* Window::get_main_surface() {
+/*SDL_Surface* Window::get_main_surface() {
 	return base_surface;
+}*/
+
+SDL_Renderer* Window::get_renderer() {
+	return renderer;
 }
 
 
@@ -60,11 +68,14 @@ Vector2I Window::get_mouse_position() {
 
 
 void Window::clear() {
-	SDL_FillRect(base_surface, nullptr, 0);
+	//SDL_FillRect(base_surface, nullptr, 0);
+	SDL_RenderClear(renderer);
+	//SDL_RenderFillRect(renderer, nullptr);
 }
 
 
 void Window::update() {
 	SDL_GetMouseState(&mouse_x, &mouse_y);
-	SDL_UpdateWindowSurface(window);
+	//SDL_UpdateWindowSurface(window);
+	SDL_RenderPresent(renderer);
 }

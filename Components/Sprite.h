@@ -2,6 +2,7 @@
 
 #include "Component.h"
 #include "Transform.h"
+#include "Vector2.h"
 
 #ifdef _WIN32
 #include <SDL_image.h>
@@ -11,11 +12,14 @@
 
 class Sprite : public Component {
 private:
-	SDL_Surface* image;
+	SDL_Texture* texture;
+	Vector2I sprite_size_;
 
 public:
 	Sprite(const char* image_file);
 	~Sprite();
 
-	SDL_Surface* get_image() { return image; }
+	//SDL_Surface* get_image() { return image; }
+	SDL_Texture* get_texture() { return texture; }
+	const Vector2I& sprite_size() { return sprite_size_; }
 };

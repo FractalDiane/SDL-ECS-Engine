@@ -30,6 +30,8 @@ int main() {
 	// Inits
 	World game_world;
 
+	Window::create_window("SDL Test", 640, 480);
+
 	// Entities/Components
 	Entity* ent = new Entity{};
 	Transform* t = new Transform{};
@@ -53,8 +55,6 @@ int main() {
 	game_world.add_system(&psys);
 	game_world.add_system(&rsys);
 	game_world.add_system(&bsys);
-
-	Window::create_window("SDL Test", 640, 480);
 
 	while (!game_world.is_game_quit()) {
 		game_world.poll_events();
