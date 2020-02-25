@@ -6,6 +6,7 @@ src = [
 	'Core/Window.cpp',
 	'Core/World.cpp',
 
+	'Components/AnimatedSprite.cpp',
 	'Components/Component.cpp',
 	'Components/Sprite.cpp',
 	'Components/Transform.cpp',

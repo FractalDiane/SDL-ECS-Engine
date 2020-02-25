@@ -1,5 +1,6 @@
 #include "Transform.h"
 #include "Sprite.h"
+#include "AnimatedSprite.h"
 #include "PlayerComponent.h"
 #include "PlayerSystem.h"
 #include "RenderSystem.h"
@@ -36,7 +37,14 @@ int main() {
 	Entity* ent = new Entity{};
 	Transform* t = new Transform{};
 
-	Sprite* spr = new Sprite{"../Sprites/Boss.png"};
+	//Sprite* spr = new Sprite{"../Sprites/Player_down.png"};
+	AnimatedSprite* spr = new AnimatedSprite{{
+		"../Sprites/Player_down.png",
+		"../Sprites/Player_down2.png",
+		"../Sprites/Player_down3.png",
+		"../Sprites/Player_down4.png",
+		"../Sprites/Player_down5.png"}, {
+		0, 1, 2, 1, 0, 3, 4, 3}, 10};
 
 	PlayerComponent* player = new PlayerComponent{};
 	
