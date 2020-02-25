@@ -47,17 +47,7 @@ namespace Mathf {
 		std::uniform_real_distribution<float> distr{min, max};
 		return distr(rand_engine);
 	}
-	
-	
-	/*#ifdef _MSVC_VER
-	__forceinline
-	#else
-	__attribute__((always_inline))
-	#endif
-	bool random_chance(float probability) {
-	    return rand_range(0.0f, 1.0f) < probability;
-	}*/
-	
+
 
 	template <typename T, typename... Args>
 	T choose(T first, Args... args) {
