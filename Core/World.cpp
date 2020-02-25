@@ -115,11 +115,19 @@ void World::poll_events() {
 			} break;
 
 			case SDL_EventType::SDL_KEYDOWN: {
-				Input::process_input_event(Input::KeyEventType::Pressed, event_handler);
+				Input::process_input_event(Input::EventType::KeyPressed, event_handler);
 			} break;
 
 			case SDL_EventType::SDL_KEYUP: {
-				Input::process_input_event(Input::KeyEventType::Released, event_handler);
+				Input::process_input_event(Input::EventType::KeyReleased, event_handler);
+			} break;
+
+			case SDL_EventType::SDL_MOUSEBUTTONDOWN: {
+				Input::process_input_event(Input::EventType::MousePressed, event_handler);
+			} break;
+
+			case SDL_EventType::SDL_MOUSEBUTTONUP: {
+				Input::process_input_event(Input::EventType::MouseReleased, event_handler);
 			} break;
 		}
 	}

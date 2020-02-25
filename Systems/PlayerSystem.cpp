@@ -30,7 +30,7 @@ void PlayerSystem::player_input(double delta, PlayerComponent* player, World& wo
 	
 	player->get_owner_component<Transform>()->set_position(Vector2{pos + vel});
 
-	if (Input::is_key_pressed(SDLK_e)) {
+	if (Input::is_mouse_button_pressed(Input::MouseButton::ButtonLeft)) {
 		fire_bullet(pos, world);
 	}
 }
