@@ -74,6 +74,8 @@ int main() {
 	spr->add_animation("right", {15});
 	spr->add_animation("right_walk", {16, 17, 16, 15, 18, 19, 18, 15}, 10.0);
 
+	spr->set_centered(true);
+
 	PlayerComponent* player = new PlayerComponent{};
 	
 	ent->add_component(t);

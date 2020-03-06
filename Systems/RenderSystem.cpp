@@ -41,7 +41,7 @@ void RenderSystem::render_sprite(Sprite* spr, Transform* tr, World& world) {
 		Vector2 scale = tr->get_scale();
 		Vector2I size = spr->sprite_size();
 
-		SDL_Rect pos_rect{static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(size.x * scale.x), static_cast<int>(size.y * scale.y)};
+		SDL_Rect pos_rect{spr->is_centered() ? static_cast<int>(pos.x - size.x) : static_cast<int>(pos.x), spr->is_centered() ? static_cast<int>(pos.y - size.y) : static_cast<int>(pos.y), static_cast<int>(size.x * scale.x), static_cast<int>(size.y * scale.y)};
 
 		SDL_RenderCopyEx(Window::get_renderer(), spr->get_texture(), nullptr, &pos_rect, rot, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 	}
@@ -61,8 +61,7 @@ void RenderSystem::render_animated_sprite(AnimatedSprite* spr, Transform* tr, Wo
 		Vector2 scale = tr->get_scale();
 		Vector2I size = spr->sprite_size();
 
-		SDL_Rect pos_rect{static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(size.x * scale.x), static_cast<int>(size.y * scale.y)};
-
+		SDL_Rect pos_rect{ spr->is_centered() ? static_cast<int>(pos.x - size.x) : static_cast<int>(pos.x), spr->is_centered() ? static_cast<int>(pos.y - size.y) : static_cast<int>(pos.y), static_cast<int>(size.x * scale.x), static_cast<int>(size.y * scale.y) };
 		SDL_RenderCopyEx(Window::get_renderer(), spr->current_frame_texture(), nullptr, &pos_rect, rot, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 	}
 }
@@ -77,4 +76,5 @@ void RenderSystem::draw_collider(BoxCollider* coll, World& world) {
 	SDL_Rect draw_rect{pos.x, pos.y, coll->get_extent_x(), coll->get_extent_y()};
 	SDL_RenderFillRect(Window::get_renderer(), &draw_rect);
 	SDL_SetRenderDrawBlendMode(Window::get_renderer(), SDL_BLENDMODE_NONE);
+	SDL_SetRenderDrawColor(Window::get_renderer(), 0, 0, 0, 255);
 }

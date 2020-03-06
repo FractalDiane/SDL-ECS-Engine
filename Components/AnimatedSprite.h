@@ -33,6 +33,8 @@ private:
 	unsigned int frame;
 	double anim_time;
 
+	bool centered = false;
+
 public:
 	AnimatedSprite();
 	~AnimatedSprite();
@@ -58,4 +60,7 @@ public:
 	void reset_anim_time() { anim_time = 0; }
 
 	const Vector2I& sprite_size() { return texture_sizes[animations[current_animation]->image_sequence[frame]]; }
+
+	bool is_centered() { return centered; }
+	void set_centered(bool value) { centered = value; }
 };
