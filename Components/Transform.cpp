@@ -1,11 +1,15 @@
 #include "Transform.h"
 
-Transform::Transform() : position{Vector2(0, 0)}, rotation{0}, scale{Vector2(1, 1)} {}
+Transform::Transform() : position{Vector2(0, 0)}, rotation{0}, scale{Vector2(1, 1)}, parent{nullptr} {}
 Transform::~Transform() {}
 
 
 Vector2 Transform::get_position() const {
 	return position;
+}
+
+Vector2 Transform::get_position_from_parent() const {
+	return parent ? parent->position + position : position;
 }
 
 float Transform::get_rotation() const {
@@ -27,4 +31,12 @@ void Transform::set_rotation(const float& value) {
 
 void Transform::set_scale(const Vector2& value) {
 	scale = value;
+}
+
+Transform* Transform::get_parent() const {
+	return parent;
+}
+
+void Transform::set_parent(Transform* value) {
+	parent = value;
 }

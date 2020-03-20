@@ -13,7 +13,7 @@ void BulletSystem::run(World& world) {
 
 
 void BulletSystem::move_bullet(double delta, BulletComponent* bullet, World& world) {
-	Vector2 pos = bullet->get_owner_component<Transform>()->get_position();
+	Vector2 pos = bullet->get_owner_component<Transform>()->get_position_from_parent();
 	if (pos.x < -20 || pos.x > 660 || pos.y < -20 || pos.y > 500) {
 		world.destroy_entity(bullet->get_owner());
 		return;

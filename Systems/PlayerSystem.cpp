@@ -30,7 +30,7 @@ void PlayerSystem::player_input(double delta, PlayerComponent* player, World& wo
 	Vector2I vel{x1 - x2, y1 - y2};
 	Vector2 vel_mod = Vector2{vel}.normalized() * player->get_speed() * delta;
 
-	Vector2 pos = player->get_owner_component<Transform>()->get_position();
+	Vector2 pos = player->get_owner_component<Transform>()->get_position_from_parent();
 	
 	player->get_owner_component<Transform>()->set_position(Vector2{pos + vel_mod});
 

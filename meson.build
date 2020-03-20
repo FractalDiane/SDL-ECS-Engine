@@ -1,6 +1,7 @@
 project('SDL Test', 'cpp')
 deps = [dependency('SDL2'), dependency('SDL2_image')]
 src = [
+	'Core/FileParser.cpp',
 	'Core/Input.cpp',
 	'Core/Vector2.cpp',
 	'Core/Window.cpp',

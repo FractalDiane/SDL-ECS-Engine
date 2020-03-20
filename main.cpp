@@ -7,6 +7,7 @@
 #include "BulletComponent.h"
 #include "BulletSystem.h"
 #include "BoxCollider.h"
+#include "FileParser.h"
 
 #include "Input.h"
 #include "World.h"
@@ -29,6 +30,8 @@
 
 
 int main() {
+	FileParser::read_file("test.txt");
+
 	// Inits
 	World game_world;
 

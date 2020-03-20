@@ -36,7 +36,7 @@ void RenderSystem::run(World& world) {
 
 void RenderSystem::render_sprite(Sprite* spr, Transform* tr, World& world) {
 	if (tr) {
-		Vector2 pos = tr->get_position();
+		Vector2 pos = tr->get_position_from_parent();
 		float rot = tr->get_rotation();
 		Vector2 scale = tr->get_scale();
 		Vector2I size = spr->sprite_size();
@@ -56,7 +56,7 @@ void RenderSystem::render_animated_sprite(AnimatedSprite* spr, Transform* tr, Wo
 			spr->reset_anim_time();
 		}
 
-		Vector2 pos = tr->get_position();
+		Vector2 pos = tr->get_position_from_parent();
 		float rot = tr->get_rotation();
 		Vector2 scale = tr->get_scale();
 		Vector2I size = spr->sprite_size();
@@ -70,7 +70,7 @@ void RenderSystem::render_animated_sprite(AnimatedSprite* spr, Transform* tr, Wo
 void RenderSystem::draw_collider(BoxCollider* coll, World& world) {
 	SDL_SetRenderDrawColor(Window::get_renderer(), 0, 255, 0, 128);
 
-	Vector2 pos = coll->get_owner_component<Transform>()->get_position();
+	Vector2 pos = coll->get_owner_component<Transform>()->get_position_from_parent();
 
 	SDL_SetRenderDrawBlendMode(Window::get_renderer(), SDL_BLENDMODE_BLEND);
 	SDL_Rect draw_rect{pos.x, pos.y, coll->get_extent_x(), coll->get_extent_y()};
