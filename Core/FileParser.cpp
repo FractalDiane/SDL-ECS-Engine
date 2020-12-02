@@ -15,6 +15,8 @@ const std::unordered_map<std::string, FileParser::TypeRegistration> FileParser::
 	REGISTER_TYPE(BoxCollider),
 };
 
+#undef REGISTER_TYPE
+
 const std::regex FileParser::string_regex{R"re(^"(.*)"$)re"};
 const std::regex FileParser::vector2_regex{R"re(^\(([\d.]+),\s*([\d.]+)\)$)re"};
 
