@@ -1,6 +1,6 @@
 #include "Input.h"
 
-#include "ECSSystem.h"
+#include "Core/ECSSystem.h"
 
 std::unordered_set<SDL_Keycode> Input::pressed_keys = {};
 std::unordered_set<SDL_Keycode> Input::pressed_keys_momentary = {};

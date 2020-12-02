@@ -6,7 +6,7 @@
 #include <SDL2/SDL.h>
 #endif
 
-#include "ECSSystem.h"
+#include "Core/ECSSystem.h"
 
 
 SDL_Window* Window::window = nullptr;

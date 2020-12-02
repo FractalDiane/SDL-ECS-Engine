@@ -4,8 +4,6 @@
 #include <typeindex>
 #include <typeinfo>
 
-#include "Vocter.h"
-
 class Component;
 
 class Entity {
@@ -33,7 +31,7 @@ public:
 };
 
 
-#include "Component.h"
+#include "Components/Component.h"
 
 template <typename C>
 C* Entity::get_component() {

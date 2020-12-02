@@ -1,9 +1,9 @@
 #include "RenderSystem.h"
 
-#include "World.h"
-#include "Vector2.h"
-#include "Mathf.h"
-#include "ECSSystem.h"
+#include "Core/World.h"
+#include "Core/Vector2.h"
+#include "Core/Mathf.h"
+#include "Core/ECSSystem.h"
 
 #include <cmath>
 

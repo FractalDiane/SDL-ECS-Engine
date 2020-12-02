@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Component.h"
-#include "Vector2.h"
+#include "Components/Component.h"
+#include "Core/Vector2.h"
 
 class BulletComponent : public Component {
 private:

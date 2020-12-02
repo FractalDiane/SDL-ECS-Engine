@@ -1,6 +1,6 @@
 #include "AnimatedSprite.h"
 
-#include "ECSSystem.h"
+#include "Core/ECSSystem.h"
 
 AnimatedSprite::AnimatedSprite() : frame{0}, anim_time{0} {
 	

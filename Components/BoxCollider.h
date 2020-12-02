@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Component.h"
-#include "Transform.h"
-#include "Vector2.h"
+#include "Components/Component.h"
+#include "Components/Transform.h"
+#include "Core/Vector2.h"
 
 class BoxCollider : public Component {
 private:

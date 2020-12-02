@@ -10,7 +10,7 @@
 #include <typeinfo>
 #include <typeindex>
 
-#include "World.h"
+#include "Core/World.h"
 
 class Entity;
 
@@ -31,7 +31,7 @@ public:
 };
 
 
-#include "Entity.h"
+#include "Entities/Entity.h"
 
 template <typename C>
 C* Component::get_owner_component() {

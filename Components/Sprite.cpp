@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-#include "ECSSystem.h"
+#include "Core/ECSSystem.h"
 
 Sprite::Sprite(const char* image_file) {
 	SDL_Surface* surf = IMG_Load(image_file);

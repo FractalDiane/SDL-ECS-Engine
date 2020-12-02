@@ -8,7 +8,7 @@
 #include <SDL2/SDL_render.h>
 #endif
 
-#include "Vector2.h"
+#include "Core/Vector2.h"
 
 class Window {
 private:

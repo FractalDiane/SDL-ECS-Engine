@@ -1,7 +1,7 @@
 #pragma once
 
-#include "System.h"
-#include "BulletComponent.h"
+#include "Systems/System.h"
+#include "Components/BulletComponent.h"
 
 class BulletSystem : public System {
 public:

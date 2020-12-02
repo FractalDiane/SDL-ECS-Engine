@@ -1,4 +1,6 @@
 .vscode/
-build/
+engine
+engine.exe
+.sconsign.dblite
 SDL ECS Engine/
 *.o

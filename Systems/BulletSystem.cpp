@@ -1,7 +1,7 @@
 #include "BulletSystem.h"
 
-#include "World.h"
-#include "Transform.h"
+#include "Core/World.h"
+#include "Components/Transform.h"
 
 void BulletSystem::run(World& world) {
 	if (world.components_exist_of_type<BulletComponent>()) {

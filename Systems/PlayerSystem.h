@@ -1,8 +1,8 @@
 #pragma once
 
-#include "System.h"
-#include "PlayerComponent.h"
-#include "AnimatedSprite.h"
+#include "Systems/System.h"
+#include "Components/PlayerComponent.h"
+#include "Components/AnimatedSprite.h"
 
 class PlayerSystem : public System {
 public:

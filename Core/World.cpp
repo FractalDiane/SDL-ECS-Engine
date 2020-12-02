@@ -11,7 +11,7 @@
 #include <algorithm>
 
 #ifdef ECS_DEBUG
-#include "ECSSystem.h"
+#include "Core/ECSSystem.h"
 #endif
 
 #ifdef ECS_SHOW_FPS

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "System.h"
-#include "Sprite.h"
-#include "AnimatedSprite.h"
-#include "BoxCollider.h"
+#include "Systems/System.h"
+#include "Components/Sprite.h"
+#include "Components/AnimatedSprite.h"
+#include "Components/BoxCollider.h"
 
 class RenderSystem : public System {
 public:

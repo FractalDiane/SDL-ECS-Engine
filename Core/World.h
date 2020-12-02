@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Entity.h"
-#include "Component.h"
-#include "System.h"
+#include "Entities/Entity.h"
+#include "Components/Component.h"
+#include "Systems/System.h"
 
 #ifdef _WIN32
 #include <SDL_events.h>
@@ -15,7 +15,7 @@
 #include <typeindex>
 #include <cstdint>
 
-#include "Window.h"
+#include "Core/Window.h"
 //#include "Vocter.h"
 #include <vector>
 

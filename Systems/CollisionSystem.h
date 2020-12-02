@@ -1,7 +1,7 @@
 #pragma once
 
-#include "System.h"
-#include "Vector2.h"
+#include "Systems/System.h"
+#include "Core/Vector2.h"
 
 class CollisionSystem : public System {
 public:

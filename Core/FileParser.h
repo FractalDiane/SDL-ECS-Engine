@@ -5,10 +5,10 @@
 #include <typeinfo>
 #include <typeindex>
 
-#include "Transform.h"
-#include "Sprite.h"
-#include "AnimatedSprite.h"
-#include "BoxCollider.h"
+#include "Components/Transform.h"
+#include "Components/Sprite.h"
+#include "Components/AnimatedSprite.h"
+#include "Components/BoxCollider.h"
 
 
 

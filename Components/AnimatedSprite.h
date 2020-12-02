@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Component.h"
-#include "Transform.h"
-#include "Vector2.h"
-#include "Mathf.h"
+#include "Components/Component.h"
+#include "Components/Transform.h"
+#include "Core/Vector2.h"
+#include "Core/Mathf.h"
 
-#include "ECSSystem.h"
+#include "Core/ECSSystem.h"
 
 #include <vector>
 #include <unordered_map>

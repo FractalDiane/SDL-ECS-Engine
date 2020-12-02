@@ -1,17 +1,17 @@
-#include "Transform.h"
-#include "Sprite.h"
-#include "AnimatedSprite.h"
-#include "PlayerComponent.h"
-#include "PlayerSystem.h"
-#include "RenderSystem.h"
-#include "BulletComponent.h"
-#include "BulletSystem.h"
-#include "BoxCollider.h"
-#include "FileParser.h"
+#include "Components/Transform.h"
+#include "Components/Sprite.h"
+#include "Components/AnimatedSprite.h"
+#include "Components/PlayerComponent.h"
+#include "Systems/PlayerSystem.h"
+#include "Systems/RenderSystem.h"
+#include "Components/BulletComponent.h"
+#include "Systems/BulletSystem.h"
+#include "Components/BoxCollider.h"
+#include "Core/FileParser.h"
 
-#include "Input.h"
-#include "World.h"
-#include "Window.h"
+#include "Core/Input.h"
+#include "Core/World.h"
+#include "Core/Window.h"
 
 #ifdef _WIN32
 #include <SDL.h>
@@ -44,29 +44,29 @@ int main() {
 
 	AnimatedSprite* spr = new AnimatedSprite{};
 	spr->add_textures({
-		"../Sprites/Player/Player_up.png",
-		"../Sprites/Player/Player_up2.png",
-		"../Sprites/Player/Player_up3.png",
-		"../Sprites/Player/Player_up4.png",
-		"../Sprites/Player/Player_up5.png",
+		"Sprites/Player/Player_up.png",
+		"Sprites/Player/Player_up2.png",
+		"Sprites/Player/Player_up3.png",
+		"Sprites/Player/Player_up4.png",
+		"Sprites/Player/Player_up5.png",
 		
-		"../Sprites/Player/Player_down.png",
-		"../Sprites/Player/Player_down2.png",
-		"../Sprites/Player/Player_down3.png",
-		"../Sprites/Player/Player_down4.png",
-		"../Sprites/Player/Player_down5.png",
+		"Sprites/Player/Player_down.png",
+		"Sprites/Player/Player_down2.png",
+		"Sprites/Player/Player_down3.png",
+		"Sprites/Player/Player_down4.png",
+		"Sprites/Player/Player_down5.png",
 		
-		"../Sprites/Player/Player_left.png",
-		"../Sprites/Player/Player_left2.png",
-		"../Sprites/Player/Player_left3.png",
-		"../Sprites/Player/Player_left4.png",
-		"../Sprites/Player/Player_left5.png",
+		"Sprites/Player/Player_left.png",
+		"Sprites/Player/Player_left2.png",
+		"Sprites/Player/Player_left3.png",
+		"Sprites/Player/Player_left4.png",
+		"Sprites/Player/Player_left5.png",
 
-		"../Sprites/Player/Player_right.png",
-		"../Sprites/Player/Player_right2.png",
-		"../Sprites/Player/Player_right3.png",
-		"../Sprites/Player/Player_right4.png",
-		"../Sprites/Player/Player_right5.png"});
+		"Sprites/Player/Player_right.png",
+		"Sprites/Player/Player_right2.png",
+		"Sprites/Player/Player_right3.png",
+		"Sprites/Player/Player_right4.png",
+		"Sprites/Player/Player_right5.png"});
 
 	spr->add_animation("up", {0});
 	spr->add_animation("up_walk", {1, 2, 1, 0, 3, 4, 3, 0}, 10.0);

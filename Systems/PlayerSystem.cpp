@@ -1,13 +1,13 @@
 #include "PlayerSystem.h"
 
-#include "World.h"
-#include "Input.h"
+#include "Core/World.h"
+#include "Core/Input.h"
 
-#include "Mathf.h"
+#include "Core/Mathf.h"
 
-#include "Transform.h"
-#include "Sprite.h"
-#include "BulletComponent.h"
+#include "Components/Transform.h"
+#include "Components/Sprite.h"
+#include "Components/BulletComponent.h"
 
 #include <cmath>
 #include <string>
@@ -95,7 +95,7 @@ void PlayerSystem::fire_bullet(const Vector2& player_pos, World& world) {
 	Entity* bullet = new Entity{};
 	Transform* bullet_tr = new Transform{};
 	bullet_tr->set_position(player_pos);
-	Sprite* bullet_spr = new Sprite{"../Sprites/Fireball.png"};
+	Sprite* bullet_spr = new Sprite{"Sprites/Fireball.png"};
 	BulletComponent* bullet_comp = new BulletComponent{};
 
 	Vector2 dir = Vector2{-1, 0}.rotated(player_pos.angle_to(Window::get_mouse_position()));
