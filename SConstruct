@@ -1,9 +1,6 @@
 import os
 
 opts = Variables([], ARGUMENTS)
-
-# Gets the standard flags CC, CCX, etc.
-#env = DefaultEnvironment()
 env = Environment(ENV = os.environ)
 
 opts.Add(EnumVariable('target', "Compilation target", 'debug', ['d', 'debug', 'r', 'release']))
