@@ -12,7 +12,7 @@
 #include <initializer_list>
 #include <string>
 
-#ifdef _WIN32
+#if defined(_WIN32) && 0
 #include <SDL_image.h>
 #else
 #include <SDL2/SDL_image.h>

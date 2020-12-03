@@ -2,7 +2,7 @@
 
 #include "Input.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) && 0
 #include <SDL_timer.h>
 #else
 #include <SDL2/SDL_timer.h>

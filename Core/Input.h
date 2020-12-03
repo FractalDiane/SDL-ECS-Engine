@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef _WIN32
+#if defined(_WIN32) && 0
 #include <SDL_keyboard.h>
 #include <SDL_joystick.h>
 #include <SDL_events.h>

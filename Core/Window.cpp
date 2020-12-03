@@ -1,12 +1,13 @@
 #include "Window.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) && 0
 #include <SDL.h>
 #else
 #include <SDL2/SDL.h>
 #endif
 
 #include "Core/ECSSystem.h"
+#include <cstdlib>
 
 
 SDL_Window* Window::window = nullptr;

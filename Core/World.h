@@ -4,7 +4,7 @@
 #include "Components/Component.h"
 #include "Systems/System.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) && 0
 #include <SDL_events.h>
 #else
 #include <SDL2/SDL_events.h>

@@ -3,4 +3,5 @@ engine
 engine.exe
 .sconsign.dblite
 SDL ECS Engine/
+include/
 *.o

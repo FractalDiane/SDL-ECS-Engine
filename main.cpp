@@ -13,7 +13,7 @@
 #include "Core/World.h"
 #include "Core/Window.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) && 0
 #include <SDL.h>
 #undef main
 #else

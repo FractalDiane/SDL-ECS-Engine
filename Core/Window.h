@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef _WIN32
+#if defined(_WIN32) && 0
 #include <SDL_video.h>
 #include <SDL_render.h>
 #else
