@@ -1,12 +1,9 @@
 #include "Window.h"
 
-#if defined(_WIN32) && 0
-#include <SDL.h>
-#else
 #include <SDL2/SDL.h>
-#endif
 
 #include "Core/ECSSystem.h"
+
 #include <cstdlib>
 
 

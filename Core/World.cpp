@@ -1,16 +1,11 @@
 #include "World.h"
 
 #include "Input.h"
+#include "Core/ECSSystem.h"
 
-#if defined(_WIN32) && 0
-#include <SDL_timer.h>
-#else
 #include <SDL2/SDL_timer.h>
-#endif
 
 #include <algorithm>
-
-#include "Core/ECSSystem.h"
 
 #ifdef ECS_SHOW_FPS
 #include <string>

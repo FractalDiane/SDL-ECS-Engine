@@ -1,10 +1,6 @@
 #pragma once
 
-#if defined(_WIN32) && 0
-#include <SDL_surface.h>
-#else
 #include <SDL2/SDL_surface.h>
-#endif
 
 #include <unordered_map>
 #include <typeinfo>

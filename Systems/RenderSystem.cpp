@@ -7,11 +7,7 @@
 
 #include <cmath>
 
-#if defined(_WIN32) && 0
-#include <SDL_surface.h>
-#else
 #include <SDL2/SDL_surface.h>
-#endif
 
 void RenderSystem::run(World& world) {
 	if (world.components_exist_of_type<Sprite>()) {

@@ -12,11 +12,9 @@
 #include "Core/World.h"
 #include "Core/Window.h"
 
-#if defined(_WIN32) && 0
-#include <SDL.h>
-#undef main
-#else
 #include <SDL2/SDL.h>
+#ifdef _WIN32
+#undef main
 #endif
 
 #ifdef ECS_DEBUG

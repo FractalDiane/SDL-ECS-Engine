@@ -4,11 +4,7 @@
 #include "Components/Transform.h"
 #include "Core/Vector2.h"
 
-#if defined(_WIN32) && 0
-#include <SDL_image.h>
-#else
 #include <SDL2/SDL_image.h>
-#endif
 
 class Sprite : public Component {
 private:

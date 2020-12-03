@@ -1,12 +1,7 @@
 #pragma once
 
-#if defined(_WIN32) && 0
-#include <SDL_video.h>
-#include <SDL_render.h>
-#else
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_render.h>
-#endif
 
 #include "Core/Vector2.h"
 
