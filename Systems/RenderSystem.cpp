@@ -2,7 +2,7 @@
 
 #include "Core/World.h"
 #include "Core/Vector2.h"
-#include "Core/Mathf.h"
+#include "Core/Math.h"
 #include "Core/ECSSystem.h"
 
 #include <cmath>

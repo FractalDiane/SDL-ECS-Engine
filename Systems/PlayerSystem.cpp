@@ -3,7 +3,7 @@
 #include "Core/World.h"
 #include "Core/Input.h"
 
-#include "Core/Mathf.h"
+#include "Core/Math.h"
 #include "Core/Serializer.h"
 
 #include "Components/Transform.h"
@@ -104,7 +104,7 @@ void PlayerSystem::fire_bullet(const Vector2& player_pos, World& world) {
 	BulletComponent* bullet_comp = new BulletComponent{};
 
 	Vector2 dir = Vector2{-1, 0}.rotated(player_pos.angle_to(Window::get_mouse_position()));
-	bullet_tr->set_rotation(Mathf::rad2deg(dir.angle()));
+	bullet_tr->set_rotation(Math::rad2deg(dir.angle()));
 	bullet_tr->set_scale(Vector2{2, 2});
 	bullet_comp->set_velocity(dir);
 

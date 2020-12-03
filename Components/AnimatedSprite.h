@@ -3,7 +3,7 @@
 #include "Components/Component.h"
 #include "Components/Transform.h"
 #include "Core/Vector2.h"
-#include "Core/Mathf.h"
+#include "Core/Math.h"
 
 #include "Core/ECSSystem.h"
 
@@ -49,7 +49,7 @@ public:
 	//void set_animation_speed(const float& value) { animation_speed = value; }
 
 	unsigned int current_frame() { return frame; }
-	void advance_frame() { frame = Mathf::wrap(++frame, 0, animations[current_animation]->image_sequence.size() - 1); }
+	void advance_frame() { frame = Math::wrap(++frame, 0, animations[current_animation]->image_sequence.size() - 1); }
 
 	double get_anim_time() { return anim_time; }
 	void add_anim_time(const double& value) { anim_time += value; }
