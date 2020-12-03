@@ -4,6 +4,7 @@
 #include "Core/Input.h"
 
 #include "Core/Mathf.h"
+#include "Core/Serializer.h"
 
 #include "Components/Transform.h"
 #include "Components/Sprite.h"
@@ -22,10 +23,10 @@ void PlayerSystem::run(World& world) {
 
 
 void PlayerSystem::player_input(double delta, PlayerComponent* player, World& world) {
-	int x1 = Input::is_key_held(SDLK_RIGHT) || Input::is_key_held(SDLK_d) ? 1 : 0;
-	int x2 = Input::is_key_held(SDLK_LEFT) || Input::is_key_held(SDLK_a) ? 1 : 0;
-	int y1 = Input::is_key_held(SDLK_DOWN) || Input::is_key_held(SDLK_s) ? 1 : 0;
-	int y2 = Input::is_key_held(SDLK_UP) || Input::is_key_held(SDLK_w) ? 1 : 0;
+	int x1 = Input::is_key_held(SDLK_RIGHT) || Input::is_key_held(SDLK_d);// ? 1 : 0;
+	int x2 = Input::is_key_held(SDLK_LEFT) || Input::is_key_held(SDLK_a);// ? 1 : 0;
+	int y1 = Input::is_key_held(SDLK_DOWN) || Input::is_key_held(SDLK_s);// ? 1 : 0;
+	int y2 = Input::is_key_held(SDLK_UP) || Input::is_key_held(SDLK_w);// ? 1 : 0;
 
 	Vector2I vel{x1 - x2, y1 - y2};
 	Vector2 vel_mod = Vector2{vel}.normalized() * player->get_speed() * delta;
@@ -39,6 +40,10 @@ void PlayerSystem::player_input(double delta, PlayerComponent* player, World& wo
 
 	if (Input::is_mouse_button_pressed(Input::MouseButton::ButtonLeft)) {
 		fire_bullet(pos, world);
+	}
+
+	if (Input::is_key_pressed(SDLK_SPACE)) {
+		auto s = Serializer::deserialize_scene("TestScene.json", world);
 	}
 }
 

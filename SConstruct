@@ -19,7 +19,7 @@ else:
 
 env.Append(CCFLAGS=['-Wall', '-Wpedantic', '-Wno-sign-compare', '-static', '-I.'])
 if env['target'] in ('debug', 'd'):
-	env.Append(CCFLAGS=['-fPIC', '-g3', '-Og'])
+	env.Append(CCFLAGS=['-fPIC', '-g3', '-Og', '-ggdb'])
 	env.Append(CXXFLAGS=['-std=c++17'])
 	env.Append(CPPDEFINES=['ECS_DEBUG', 'ECS_SHOW_FPS'])
 else:

@@ -10,9 +10,7 @@
 
 #include <algorithm>
 
-#ifdef ECS_DEBUG
 #include "Core/ECSSystem.h"
-#endif
 
 #ifdef ECS_SHOW_FPS
 #include <string>
@@ -28,34 +26,26 @@ void World::add_entity(Entity* ent) {
 	entity_list.push_back(ent);
 	ent->set_id(EntityCounter++);
 
-	#ifdef ECS_DEBUG
-	ECS_PRINT_MESSAGE("Added a new entity (ID %lu)", EntityCounter - 1);
-	#endif
+	DEBUG_PRINT("Added a new entity (ID %lu)", EntityCounter - 1);
 }
 
 
 void World::add_component(Component* comp) {
 	component_map[typeid(*comp)].push_back(comp);
 
-	#ifdef ECS_DEBUG
-	ECS_PRINT_MESSAGE("Added a new component (%s)", typeid(*comp).name());
-	#endif
+	DEBUG_PRINT("Added a new component (%s)", typeid(*comp).name());
 }
 
 
 void World::add_system(System* sys) {
 	system_list.push_back(sys);
 
-	#ifdef ECS_DEBUG
-	ECS_PRINT_MESSAGE("Added a new system (%s)", typeid(*sys).name());
-	#endif
+	DEBUG_PRINT("Added a new system (%s)", typeid(*sys).name());
 }
 
 
 void World::destroy_entity(Entity* ent, bool destroy_components, bool remove_from_list) {
-	#ifdef ECS_DEBUG
-	ECS_PRINT_MESSAGE("Destroying entity ID %lu", ent->get_id());
-	#endif
+	DEBUG_PRINT("Destroying entity ID %lu", ent->get_id());
 
 	if (destroy_components) {
 		for (auto& pair : ent->get_components())
@@ -74,9 +64,7 @@ void World::destroy_component(Component* comp, bool remove_from_map) {
 	for (size_t i = 0; i < target_vec.size(); i++) {
 		auto current_comp = target_vec[i];
 		if (current_comp == comp) {
-			#ifdef ECS_DEBUG
-			ECS_PRINT_MESSAGE("Destroying entity ID %lu's component (%s)", comp->get_owner()->get_id(), typeid(*current_comp).name());
-			#endif
+			DEBUG_PRINT("Destroying entity ID %lu's component (%s)", comp->get_owner()->get_id(), typeid(*current_comp).name());
 
 			if (remove_from_map)
 				target_vec.erase(std::remove(target_vec.begin(), target_vec.end(), current_comp));
@@ -161,7 +149,7 @@ void World::cleanup() {
 	for (auto& pair : component_map)
 		ccount += pair.second.size();
 
-	ECS_PRINT_MESSAGE("DESTROYING EVERYTHING (%lu entities and %lu components)", entity_list.size(), ccount);
+	ECS_PRINT("DESTROYING EVERYTHING (%lu entities and %lu components)", entity_list.size(), ccount);
 	#endif
 
 	for (auto& pair : component_map) {

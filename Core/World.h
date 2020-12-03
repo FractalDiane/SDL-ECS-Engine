@@ -56,6 +56,10 @@ public:
 
 	void destroy_component(Component* comp, bool remove_from_map = true);
 
+	inline const auto& get_entity_list() const { return entity_list; }
+	inline const auto& get_component_map() const { return component_map; }
+	inline const auto& get_system_list() const { return system_list; }
+
 	template <typename C>
 	bool components_exist_of_type() {
 		return component_map.find(typeid(C)) != component_map.end();

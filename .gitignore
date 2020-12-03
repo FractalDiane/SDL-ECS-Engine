@@ -5,3 +5,4 @@ engine.exe
 SDL ECS Engine/
 include/
 *.o
+vgcore.*
